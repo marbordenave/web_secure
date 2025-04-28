@@ -1,27 +1,55 @@
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const fs = require('fs');
 
+const app = express();
+const PORT = 3000;
+const SECRET_KEY = 'votre_cle_ultra_secrete';
 
-// server.js
-const jsonServer = require('json-server');
-
-const auth = require("json-server-auth");
-const cors = require("cors");
-
-const app = jsonServer.create();
-const router = jsonServer.router("db.json");
-
-// Définit les règles d'authentification si besoin
-// const rules = auth.rewriter({
-//   users: 600, // seuls les admins peuvent accéder aux utilisateurs
-// });
-
-app.db = router.db; // obligatoirement avant d'utiliser json-server-auth
-
+// Middlewares
 app.use(cors());
-app.use(jsonServer.defaults());
-// app.use(rules); // (décommenter si tu veux définir des règles)
-app.use(auth);
-app.use(router);
+app.use(bodyParser.json());
 
-app.listen(3000, () => {
-  console.log("🚀 Serveur JSON Server Auth lancé sur http://localhost:3000");
+// Lire les utilisateurs depuis un fichier JSON
+const users = JSON.parse(fs.readFileSync('users.json', 'utf8'));
+
+// Route de connexion
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (!user) {
+        return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+    }
+
+    const token = jwt.sign(
+        { id: user.id, email: user.email },
+        SECRET_KEY,
+        { expiresIn: '2h' } // Le token expire dans 2 heures
+    );
+
+    res.json({ token });
+});
+
+// Exemple de route protégée
+app.get('/protected', (req, res) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ message: 'Token manquant' });
+    }
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) return res.status(403).json({ message: 'Token invalide' });
+
+        res.json({ message: 'Accès autorisé', user });
+    });
+});
+
+// Lancement du serveur
+app.listen(PORT, () => {
+    console.log(`Serveur authentification lancé sur http://localhost:${PORT}`);
 });

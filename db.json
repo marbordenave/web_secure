@@ -1,0 +1,138 @@
+{
+  "attractions": [
+    {
+      "id": "1",
+      "nom": "Course de taureaux à Séville",
+      "description": "Embarquez dans un train fougueux simulant une course de taureaux à travers les rues étroites de Séville, en faisant face à des virages serrés et des obstacles imprévisibles.",
+      "type": "Grand huit",
+      "statut": false,
+      "duree": 5,
+      "age_minimum": 12,
+      "date_creation": "2024-04-16",
+      "image": "image_seville.jpg",
+      "commentaires": []
+    },
+    {
+      "id": "2",
+      "nom": "Aventure britannique",
+      "description": "Embarquez dans une bouée et naviguez à travers les rivières tumultueuses du Royaume-Uni, en passant devant des châteaux médiévaux, des villages pittoresques et des paysages emblématiques.",
+      "type": "Bouée dans l'eau",
+      "statut": true,
+      "duree": 8,
+      "age_minimum": 6,
+      "date_creation": "2024-04-16",
+      "image": "image_royaume_uni.jpg",
+      "commentaires": []
+    },
+    {
+      "id": "3",
+      "nom": "Croisière dans la Baie d'Ha Long",
+      "description": "Embarquez dans un bateau et partez pour une croisière relaxante à travers les eaux calmes de la baie d'Ha Long, en passant devant ses formations rocheuses emblématiques et ses grottes cachées.",
+      "type": "Croisière / Découverte",
+      "statut": true,
+      "duree": 30,
+      "age_minimum": 5,
+      "date_creation": "2024-04-16",
+      "image": "image_baie_halong.jpg",
+      "commentaires": []
+    },
+    {
+      "id": "4",
+      "nom": "Descente dans la Jungle Brésilienne",
+      "description": "Embarquez dans des radeaux gonflables pour une descente enivrante à travers les rapides tumultueux de la jungle amazonienne, en évitant les cascades et en découvrant une faune exotique.",
+      "type": "Bouée dans l'eau",
+      "statut": false,
+      "duree": 6,
+      "age_minimum": 12,
+      "date_creation": "2024-04-16",
+      "image": "image_amazonie.jpg",
+      "commentaires": []
+    },
+    {
+      "id": "5",
+      "nom": "Ascension dans les Rocheuses",
+      "description": "Embarquez dans un train à grande vitesse pour une ascension vertigineuse à travers les montagnes Rocheuses du Canada, avec des boucles, des vrilles et des descentes à couper le souffle.",
+      "type": "Grand huit",
+      "statut": false,
+      "duree": 3,
+      "age_minimum": 8,
+      "date_creation": "2024-04-16",
+      "image": "image_rocheuses.jpg",
+      "commentaires": []
+    },
+    {
+      "id": "6",
+      "nom": "Vol au-dessus de Lisbonne",
+      "description": "Embarquez pour un vol palpitant au-dessus des toits de Lisbonne, avec des virages serrés et des plongées vertigineuses vous offrant une vue panoramique sur la ville.",
+      "type": "Grand huit",
+      "statut": true,
+      "duree": 4,
+      "age_minimum": 10,
+      "date_creation": "2024-04-16",
+      "image": "image_lisbonne.jpg",
+      "commentaires": []
+    },
+    {
+      "id": "7",
+      "nom": "Voyage à Venise",
+      "description": "Embarquez dans une gondole et naviguez à travers les canaux sinueux de Venise, en admirant les palais vénitiens, les ponts romantiques et l'atmosphère magique de la ville.",
+      "type": "Croisière / Découverte",
+      "statut": true,
+      "duree": 20,
+      "age_minimum": 5,
+      "date_creation": "2024-04-16",
+      "image": "image_venise.jpg",
+      "commentaires": []
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "pseudo": "john_doe",
+      "mail": "johndoe@example.com",
+      "password": "password123",
+      "role": "user",
+      "token": "sample-token-123"
+    },
+    {
+      "id": "2",
+      "pseudo": "admin_user",
+      "mail": "admin@example.com",
+      "password": "adminpassword",
+      "role": "admin",
+      "token": "admin-token-456"
+    },
+    {
+      "id": "5d74",
+      "pseudo": "testlkfh",
+      "mail": "marin@klh",
+      "password": "@Orange01"
+    }
+  ],
+  "parc": {
+    "id": 1,
+    "nom": "Parc Aventure",
+    "description": "Le parc d'attractions le plus excitant avec des montagnes russes et des aventures palpitantes.",
+    "date_creation": "2024-04-16"
+  },
+  "tarifs": [
+    {
+      "id": "1",
+      "nom": "adulte",
+      "prix": 30,
+      "description": []
+    },
+    {
+      "id": "2",
+      "nom": "enfant",
+      "prix": 20,
+      "description": []
+    },
+    {
+      "id": "3",
+      "nom": "senior",
+      "prix": 15,
+      "description": []
+    }
+  ]
+}

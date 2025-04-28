@@ -1,0 +1,25 @@
+.donneesparc {
+    padding: 4%; /* Marge intérieure en pourcentage */
+    border: 0.1em solid #2ec4b6; /* Épaisseur de la bordure en pourcentage */
+    border-radius: 1%; 
+    background-color: #cbf3f0;
+    margin-bottom: 5%; 
+    text-align: center;
+  }
+  
+  .donneesparc:hover {
+    transform: translateY(-0.5%);
+    box-shadow: 0 1em 2em #cbf3f0; 
+  }
+  
+  .parcnom {
+    font-size: 2.4vw; 
+    color: #2ec4b6;
+    margin-bottom: 1%; 
+  }
+  
+  .parcdecription {
+    font-size: 1.8vw; 
+    color: #050606;
+  }
+  

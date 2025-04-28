@@ -1,0 +1,80 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+}
+
+P{
+padding :0%;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    /*justify-content: space-between; */
+    height: 80px;
+    padding: 0 2rem;
+    background-color: #2ec4b6;
+    color: white;
+}
+
+nav p {
+    margin: 0 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #2ec4b6;
+}
+
+header .nav-btn {
+    padding: 5px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e9c46a;
+    visibility: hidden;
+    opacity: 0;
+    font-size: 1.8rem;
+}
+
+header div,
+nav {
+    display: flex;
+    align-items: center;
+}
+
+.active {
+    color: #cb751a;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 1rem; /* Ajustez le padding pour un espacement approprié */
+    }
+
+    nav {
+        margin-top: 1rem; /* Ajoutez un espace entre le logo et le menu */
+    }
+
+    nav .menu {
+        display: flex;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+#test{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

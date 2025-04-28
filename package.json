@@ -1,0 +1,35 @@
+{
+    "name": "my-first-react-app",
+    "version": "1.0.0",
+    "description": "Une application React",
+    "main": "index.js",
+    "scripts": {
+        "start:api": "json-server --watch db.json --port 3000",
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "lint": "eslint src",
+        "lint:fix": "eslint --fix src"
+    },
+    "author": "John Doe",
+    "dependencies": {
+        "json-server-auth": "^2.1.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-scripts": "latest"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "json-server": "^1.0.0-beta.3"
+    }
+}

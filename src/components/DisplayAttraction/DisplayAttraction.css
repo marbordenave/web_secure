@@ -1,0 +1,97 @@
+
+
+#listeAttraction {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.afficheAttraction {
+    width: 25em;
+    height: auto;
+    margin: 1%;
+    padding : 5%; 
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+   
+}
+
+.afficheAttraction:hover {
+    background: #e6e6e6;
+}
+
+.afficheAttraction img {
+    width: 100%;
+}
+
+.afficheAttraction h2,
+.afficheAttraction h3 {
+    font-size: 1.2em;
+    padding: 10px;
+    margin: 0;
+}
+
+
+#detailsAttraction {
+    width: 90vw;
+    margin: auto;
+    padding-top: 4%;
+    margin-bottom: 3.33vw;
+    background: rgb(244, 249, 249);
+    border-radius: 1.11vw;
+    position: relative; 
+    display: flex;
+}
+
+#detailsAttraction div img {
+    width: 33.33vw;
+    padding-left: 10%;
+    padding-top: 10%;
+}
+
+#detailsAttraction .textes {
+    padding: 2.22vw;
+    text-align: center;
+}
+
+#detailsAttraction.textes h2 {
+    margin: 1.11vw;
+}
+
+#detailsAttraction .textes p {
+    margin: 1.11vw;
+}
+
+#detailsAttraction .textes ul {
+    list-style-type: none;
+}
+
+#detailsAttraction .textes ul li {
+    border-bottom: 0.033vw solid #ddd;
+    text-align: left;
+    max-width: 10vw;
+    margin: 0 auto;
+    box-shadow: 0 0.002vw 0.004vw rgba(0, 0, 0, 0.1);
+    border-radius: 0.05vw;
+    background-color: #fff;
+    padding: 0.1vw;
+}
+
+.detailsLabel {
+    font-weight: bold;
+}
+
+
+#btnCloseDetails {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    cursor: pointer;
+}
+   
+#actionValide 
+{
+    color : rgb(17, 150, 0)
+}
+

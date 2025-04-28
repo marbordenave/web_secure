@@ -1,0 +1,14 @@
+.footer{
+    padding: 1% 0;
+    margin-top : 3%; 
+    background-color: #cbf3f0;
+    color: #4b4c4d;
+}
+ 
+.copyright {
+    text-align: center;
+    font-size: 0.8125em;
+    color: #747677;
+    margin-bottom: 0;
+    align-self: center;
+}

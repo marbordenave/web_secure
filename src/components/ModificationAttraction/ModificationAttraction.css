@@ -1,0 +1,11 @@
+.description-full {
+    display: none;
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+  }
+  
+  .expanded .description-full {
+    display: block;
+    max-height: 100%; /* Valeur suffisamment grande pour accueillir le contenu complet */
+  }

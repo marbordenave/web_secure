@@ -1,44 +1,35 @@
 import React, {useState} from 'react';
 import {logUser} from '../../services/api';
 
-//Fonction pour afficher le formualaire de connection et se connecter
+// Fonction pour afficher le formulaire de connexion
 function FormulaireConnexion({setPage}) {
-  const [pseudo, setPseudo] = useState('');
+  const [email, setEmail] = useState(''); // Changé de pseudo à email
   const [password, setPassword] = useState('');
   const [errorIdentifiant, setErrorIdentifiant] = useState('');
   
-  //fonction pour enlever le pseudo et le password des champs d'input
+  // Fonction pour réinitialiser les champs
   function ResetAll(){
-  setPseudo('');
-  setPassword('');
+    setEmail(''); // Changé ici aussi
+    setPassword('');
   }
 
   function handleLog() {
-    //Lorsqu'on clique sur "Se connecter", on envoie la requête de connexion
-    logUser(pseudo, password).then(response => {
-      if(response.result) {
-        // Si la reponse est OK, on enregistre le token dans le localStorage
-        localStorage.setItem('token', response.token);
+    logUser(email, password)
+      .then(data => {
+        localStorage.setItem('token', data.token);
         ResetAll();
-        //On retourne à l'Accueil
         setPage('accueil');
-      } 
-      else 
-      {
-        //Si les identifiants sont incorrects on affiche un message pour le dire à l'utilisateur 
-        console.error('Identifiants incorrects');
-        setErrorIdentifiant("Votre identifiant ou votre mot de passe est incorecte.")
-      }
-    }) 
-  };
-
-  //On retourne un formulaire permttant d'ajouter son pseudo, son mot de passe et d'appuyer sur un bouton pour se connecter
+      })
+      .catch(error => {
+        setErrorIdentifiant(error.message); 
+      });
+  }
   return (
     <>
-    <div id ="formulaire">
+    <div id="formulaire">
       <div>
-        <label htmlFor="pseudo">Pseudo</label>
-        <input type='text' id='pseudo' onChange={(e) => setPseudo(e.target.value)} value={pseudo}/>
+        <label htmlFor="email">Email</label>
+        <input type='email' id='email' onChange={(e) => setEmail(e.target.value)} value={email}/>
       </div>
 
       <div>
@@ -47,7 +38,7 @@ function FormulaireConnexion({setPage}) {
       </div>
       <span className='error'>{errorIdentifiant}</span>
       <button onClick={handleLog}>Se connecter</button>
-      </div>
+    </div>
     </>
   );
 }

@@ -3,53 +3,144 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const app = express();
 const PORT = 3000;
-const SECRET_KEY = 'votre_cle_ultra_secrete';
+const SECRET_KEY = 'votre_cle_secrete'; // À changer en production !
+const DB_FILE = 'db.json';
 
-// Middlewares
+// Middlewares de base
 app.use(cors());
 app.use(bodyParser.json());
 
-// Lire les utilisateurs depuis un fichier JSON
-const users = JSON.parse(fs.readFileSync('users.json', 'utf8'));
+// Charger la base de données
+function loadDB() {
+  try {
+    const data = fs.readFileSync(DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error("Erreur de lecture du fichier db.json:", err);
+    return { users: [] }; // Retourne une structure vide si fichier inexistant
+  }
+}
 
-// Route de connexion
-app.post('/login', (req, res) => {
-    const { email, password } = req.body;
-    const user = users.find(u => u.email === email && u.password === password);
+// Sauvegarder la base de données
+function saveDB(data) {
+  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+}
 
-    if (!user) {
-        return res.status(401).json({ message: 'Email ou mot de passe incorrect' });
+// Route de login
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  // 1. Vérification des champs
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email et mot de passe requis' });
+  }
+
+  const db = loadDB();
+  
+  // 2. Recherche de l'utilisateur
+  const user = db.users.find(u => u.email === email);
+  
+  if (!user) {
+    return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
+  }
+
+  // 3. Vérification du mot de passe avec bcrypt
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
+  }
+
+  // 4. Création du token JWT
+  const token = jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      role: user.role
+    },
+    SECRET_KEY,
+    { expiresIn: '1h' }
+  );
+
+  // 5. Réponse avec le token et les infos utilisateur
+  res.json({
+    token,
+    user: {
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      isAdmin: user.role === 'admin'
     }
-
-    const token = jwt.sign(
-        { id: user.id, email: user.email },
-        SECRET_KEY,
-        { expiresIn: '2h' } // Le token expire dans 2 heures
-    );
-
-    res.json({ token });
+  });
 });
 
-// Exemple de route protégée
-app.get('/protected', (req, res) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+// Route /me pour vérifier le token
+app.get('/me', (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Token manquant' });
+  }
 
-    if (!token) {
-        return res.status(401).json({ message: 'Token manquant' });
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    
+    // Vérification que l'utilisateur existe toujours
+    const db = loadDB();
+    const userExists = db.users.some(u => u.id === decoded.id);
+    
+    if (!userExists) {
+      return res.status(401).json({ error: 'Utilisateur introuvable' });
     }
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) return res.status(403).json({ message: 'Token invalide' });
-
-        res.json({ message: 'Accès autorisé', user });
+    res.json({
+      id: decoded.id,
+      email: decoded.email,
+      role: decoded.role,
+      isAdmin: decoded.role === 'admin'
     });
+  } catch (err) {
+    res.status(401).json({ error: 'Token invalide' });
+  }
 });
 
-// Lancement du serveur
+// Route d'inscription (optionnelle mais recommandée)
+app.post('/register', async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email et mot de passe requis' });
+  }
+
+  const db = loadDB();
+  
+  if (db.users.some(u => u.email === email)) {
+    return res.status(409).json({ error: 'Email déjà utilisé' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = {
+      id: db.users.length > 0 ? Math.max(...db.users.map(u => u.id)) + 1 : 1,
+      email,
+      password: hashedPassword,
+      role: 'user' // Par défaut
+    };
+
+    db.users.push(newUser);
+    saveDB(db);
+
+    res.status(201).json({ message: 'Utilisateur créé avec succès' });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// Démarrer le serveur
 app.listen(PORT, () => {
-    console.log(`Serveur authentification lancé sur http://localhost:${PORT}`);
+  console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });

@@ -6,9 +6,9 @@ const apiKey = config.apiKey;
 // ---------------------- UTILISATEURS ----------------------
 
 // Inscription d'un utilisateur
-export const sendUser = (pseudo, mail, password) => {
-  let uri = "http://localhost:3000/users";
-  var data = JSON.stringify({ pseudo, mail, password });
+export const sendUser = (email, password) => {
+  let uri = "http://localhost:4000/users";
+  var data = JSON.stringify({email, password });
   const requestOptions = {
     method: "POST",
     headers: {
@@ -23,7 +23,7 @@ export const sendUser = (pseudo, mail, password) => {
 // Récupérer ses infos
 // Fonction de récupération des données de l'utilisateur
 export const getme = (token) => {
-  let uri = "http://localhost:3000/users";
+  let uri = "http://localhost:3000/me";
   const requestOptions = {
     method: "GET",
     headers: {
@@ -41,36 +41,38 @@ export const getme = (token) => {
 
 
 // Modifier pseudo / mail
-export const updateuser = (token, id, pseudo, mail) => {
-  return fetch(`http://localhost:3000/users/${id}`, {
+export const updateuser = (token,id,email) => {
+  return fetch(`http://localhost:4000/users/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       "x-api-key": apiKey,
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ pseudo, mail }),
+    body: JSON.stringify({email}),
   }).then(handleResponse);
 };
 
-// Connexion utilisateur
 export const logUser = async (email, password) => {
-  const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
+  try {
+    const response = await fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
     });
 
-    const data = await response.json(); // Lire une seule fois le body
-
     if (!response.ok) {
-        throw new Error(data.message);
+      throw new Error('Email ou mot de passe incorrect');
     }
+    
+    const data = await response.json();
+    return data; // Retourne {token, user}
 
-    localStorage.setItem('token', data.token);
-}
+  } catch (error) {
+    console.error('Erreur API:', error);
+    throw error; // Transmet l'erreur au composant
+  }
+};
 
 
 
@@ -84,12 +86,12 @@ export const getUsers = (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch("http://localhost:3000/users", requestOptions).then(handleResponse);
+  return fetch("http://localhost:4000/users", requestOptions).then(handleResponse);
 };
 
 // Passer utilisateur en admin
 export const updateUsersAdmin = (token, userId) => {
-  return fetch(`http://localhost:3000/users/${userId}`, {
+  return fetch(`http://localhost:4000/users/${userId}`, {
     method: "PATCH", // PATCH pour modifier partiellement
     headers: {
       "Content-Type": "application/json",
@@ -110,7 +112,7 @@ export const deleteUsers = (token, userId) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch(`http://localhost:3000/users/${userId}`, requestOptions).then(handleResponse);
+  return fetch(`http://localhost:4000/users/${userId}`, requestOptions).then(handleResponse);
 };
 
 // ---------------------- ATTRACTIONS ----------------------

@@ -110,5 +110,26 @@
       "prix": 15,
       "description": []
     }
+  ],
+  "parcours": [
+    {
+      "id": "cfd6",
+      "attraction_id": "1",
+      "order": 0
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@example.com",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMy.Mrq6HxS7Y7US4dQ5ZTRfKPYrJp6yYtK",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "user@example.com",
+      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMy.Mrq6HxS7Y7US4dQ5ZTRfKPYrJp6yYtK",
+      "role": "user"
+    }
   ]
 }

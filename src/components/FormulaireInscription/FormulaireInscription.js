@@ -144,7 +144,7 @@ function FormulaireInscription() {
     if (!mailError && !passwordConfirmError && !passwordError && !pseudoError) {
       setSubmitError(""); // Réinitialisation de l'erreur de soumission
       // Envoyer les données utilisateur
-      sendUser(pseudo, mail, password);
+      sendUser(mail, password);
       //on met une popup pour montrer à l'utilisateur qu'il est bien inscrit
       setPopup(true);
       //On reset les valeurs envoyées

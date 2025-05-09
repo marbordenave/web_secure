@@ -66,8 +66,7 @@ function DisplayUsers({ token }) {
   const displayUsers = () => {
     return listeUsers.map((user) => (
       <tr key={user.id} className="list-item">
-        <td>{user.pseudo}</td>
-        <td>{user.mail}</td>
+        <td>{user.email}</td>
         <td>{user.admin ? "Oui" : "Non"}</td>
         <td>
           <button
@@ -100,7 +99,6 @@ function DisplayUsers({ token }) {
         <table>
           <thead>
             <tr>
-              <th>Nom</th>
               <th>Mail</th>
               <th>Administrateur</th>
               <th>Ajouter administrateur</th>

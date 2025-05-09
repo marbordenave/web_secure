@@ -4,7 +4,7 @@ function Footer({ setPage }) {
   return (
     <div className="footer">
       <p className="copyright">
-        Site créé par Marine Bordenave & Elliot Greneche © 2024
+        Site create by Marine Bordenave, Elise Strub et Ali Riahi
       </p>
     </div>
   );

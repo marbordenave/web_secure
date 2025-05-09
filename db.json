@@ -2,15 +2,44 @@
   "attractions": [
     {
       "id": "1",
-      "nom": "Course de taureaux à Séville",
+      "nom": "Course de taureaux à Sévill",
       "description": "Embarquez dans un train fougueux simulant une course de taureaux à travers les rues étroites de Séville, en faisant face à des virages serrés et des obstacles imprévisibles.",
       "type": "Grand huit",
       "statut": false,
       "duree": 5,
       "age_minimum": 12,
       "date_creation": "2024-04-16",
-      "image": "image_seville.jpg",
-      "commentaires": []
+      "image": "https://github.com/marbordenave/web_secure/blob/main/src/services/api.js",
+      "commentaires": [
+        {
+          "id": "1746704475987",
+          "userId": "3",
+          "userEmail": "test@example.com",
+          "texte": "lkzhg",
+          "date": "2025-05-08T11:41:15.987Z"
+        },
+        {
+          "id": "1746704502347",
+          "userId": "3",
+          "userEmail": "test@example.com",
+          "texte": "lkhqf",
+          "date": "2025-05-08T11:41:42.347Z"
+        },
+        {
+          "id": "1746710718326",
+          "userId": "2",
+          "userEmail": "test2@example.com",
+          "texte": "flkzhf",
+          "date": "2025-05-08T13:25:18.326Z"
+        },
+        {
+          "id": "1746710954813",
+          "userId": "2",
+          "userEmail": "test2@example.com",
+          "texte": "flekhflkeh",
+          "date": "2025-05-08T13:29:14.813Z"
+        }
+      ]
     },
     {
       "id": "2",
@@ -83,13 +112,23 @@
       "date_creation": "2024-04-16",
       "image": "image_venise.jpg",
       "commentaires": []
+    },
+    {
+      "id": "1746708760916",
+      "nom": "tes",
+      "description": "ofkhfg",
+      "type": 1,
+      "status": true,
+      "duree": "-12",
+      "age_minimum": "",
+      "date_creation": "2025-05-14",
+      "image": "https://github.com/marbordenave/web_secure/blob/main/src/services/api.js",
+      "commentaires": []
     }
   ],
   "parc": {
-    "id": 1,
-    "nom": "Parc Aventure",
-    "description": "Le parc d'attractions le plus excitant avec des montagnes russes et des aventures palpitantes.",
-    "date_creation": "2024-04-16"
+    "nom": "Parc Aventures",
+    "description": "Le parc d'attractions le plus excitant avec des montagnes russes et des aventures palpitantes."
   },
   "tarifs": [
     {
@@ -114,22 +153,37 @@
   "parcours": [
     {
       "id": "cfd6",
-      "attraction_id": "1",
-      "order": 0
+      "attraction_id": "1"
+    },
+    {
+      "id": "parcours-1746701246290",
+      "attraction_id": "1"
+    },
+    {
+      "id": "parcours-1746701536537",
+      "attraction_id": "2"
+    },
+    {
+      "id": "parcours-1746701555951",
+      "attraction_id": "5"
+    },
+    {
+      "id": "parcours-1746701735668",
+      "attraction_id": "3"
     }
   ],
   "users": [
     {
-      "id": 1,
-      "email": "admin@example.com",
-      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMy.Mrq6HxS7Y7US4dQ5ZTRfKPYrJp6yYtK",
-      "role": "admin"
+      "id": "1",
+      "email": "test1@example.com",
+      "password": "$2b$10$FU.5WWQ.zmFxCy/dpf1zxesUatCUfavOGZQ/KjO1xje66eI2qH68W",
+      "role": "user"
     },
     {
-      "id": 2,
-      "email": "user@example.com",
-      "password": "$2b$10$N9qo8uLOickgx2ZMRZoMy.Mrq6HxS7Y7US4dQ5ZTRfKPYrJp6yYtK",
-      "role": "user"
+      "id": "2",
+      "email": "test2@example.com",
+      "password": "$2b$10$B.o/jfcG0JQxhk0kFhb2YurGgWo1bkaHWhTCrf9PY6jVE5okY/cxC",
+      "role": "admin"
     }
   ]
 }

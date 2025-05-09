@@ -45,7 +45,6 @@ function DisplayAttraction() {
       <article className="afficheAttraction">
         <img src={image} alt={nom} />
         <h2>{nom}</h2>
-        <p>Temps d'attente : {duree}</p>
       </article>
     );
   };
@@ -87,7 +86,7 @@ function DisplayAttraction() {
 
             <ul>
               {selectedAttraction.commentaires.map((commentaire, index) => (
-                <li key={index}>{commentaire.commentaire}</li>
+                <li key={index}>{commentaire.texte}</li>
               ))}
             </ul>
             {/* Si le form pour ajouter un commentaire n'est pas affiché on met un bouton pour le faire afficher si l'utilisateur est connecté

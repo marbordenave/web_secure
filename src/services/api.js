@@ -7,7 +7,7 @@ const apiKey = config.apiKey;
 
 // Inscription d'un utilisateur
 export const sendUser = (email, password) => {
-  let uri = "http://localhost:4000/users";
+  let uri = "http://localhost:3000/register";
   var data = JSON.stringify({email, password });
   const requestOptions = {
     method: "POST",
@@ -42,7 +42,7 @@ export const getme = (token) => {
 
 // Modifier pseudo / mail
 export const updateuser = (token,id,email) => {
-  return fetch(`http://localhost:4000/users/${id}`, {
+  return fetch(`http://localhost:3000/api/users/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const logUser = async (email, password) => {
     });
 
     if (!response.ok) {
-      throw new Error('Email ou mot de passe incorrect');
+      throw new Error('Email ou mot de passe incorrecte');
     }
     
     const data = await response.json();
@@ -86,12 +86,12 @@ export const getUsers = (token) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch("http://localhost:4000/users", requestOptions).then(handleResponse);
+  return fetch("http://localhost:3000/api/users", requestOptions).then(handleResponse);
 };
 
 // Passer utilisateur en admin
 export const updateUsersAdmin = (token, userId) => {
-  return fetch(`http://localhost:4000/users/${userId}`, {
+  return fetch(`http://localhost:3000/api/users/${userId}`, {
     method: "PATCH", // PATCH pour modifier partiellement
     headers: {
       "Content-Type": "application/json",
@@ -112,14 +112,14 @@ export const deleteUsers = (token, userId) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch(`http://localhost:4000/users/${userId}`, requestOptions).then(handleResponse);
+  return fetch(`http://localhost:3000/api/users/${userId}`, requestOptions).then(handleResponse);
 };
 
 // ---------------------- ATTRACTIONS ----------------------
 
 // Ajouter une attraction
 export const sendAttraction = (token, nom, description, type, status, duree, age_minimum, date_creation, image) => {
-  let uri = "http://localhost:4000/attractions";
+  let uri = "http://localhost:3000/api/attractions";
   var data = JSON.stringify({
     nom, description, type, status, duree, age_minimum, date_creation, image, commentaires: [],
   });
@@ -144,7 +144,7 @@ export const getAttraction = () => {
       "x-api-key": apiKey,
     },
   };
-  return fetch("http://localhost:4000/attractions", requestOptions).then(handleResponse);
+  return fetch("http://localhost:3000/api/attractions", requestOptions).then(handleResponse);
 };
 
 // Supprimer une attraction
@@ -157,12 +157,12 @@ export const deleteAttraction = (token, attractionId) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  return fetch(`http://localhost:4000/attractions/${attractionId}`, requestOptions).then(handleResponse);
+  return fetch(`http://localhost:3000/api/attractions/${attractionId}`, requestOptions).then(handleResponse);
 };
 
 // Modifier une attraction
 export const updateAttraction = (token, attractionId, attractionData) => {
-  return fetch(`http://localhost:4000/attractions/${attractionId}`, {
+  return fetch(`http://localhost:3000/api/attractions/${attractionId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -173,24 +173,23 @@ export const updateAttraction = (token, attractionId, attractionData) => {
   }).then(handleResponse);
 };
 
-// Ajouter un commentaire
+
+ // Ajouter un commentaire
 export const sendCommentaire = (token, attractionId, commentaire) => {
-  return fetch(`http://localhost:4000/attractions/${attractionId}/commentaires`, {
+  return fetch(`http://localhost:3000/api/attractions/${attractionId}/commentaires`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": apiKey,
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ commentaire, note: 0 }),
+    body: JSON.stringify({ commentaire }),
   }).then(handleResponse);
 };
-
 // ---------------------- PARCOURS ----------------------
 
 // Ajouter au parcours
 export const sendParcours = (token, attractionId) => {
-  let uri = "http://localhost:4000/parcours";
+  let uri = "http://localhost:3000/api/parcours";
   var data = JSON.stringify({ attraction_id: attractionId, order: 0 });
   const requestOptions = {
     method: "POST",
@@ -206,7 +205,7 @@ export const sendParcours = (token, attractionId) => {
 
 // Récupérer parcours
 export const getParcours = (token) => {
-  let uri = "http://localhost:4000/parcours";
+  let uri = "http://localhost:3000/api/parcours";
   const requestOptions = {
     method: "GET",
     headers: {
@@ -220,7 +219,7 @@ export const getParcours = (token) => {
 
 // Supprimer attraction du parcours
 export const deleteParcours = (token, attractionId) => {
-  return fetch(`http://localhost:4000/parcours/${attractionId}`, {
+  return fetch(`http://localhost:3000/api/parcours/${attractionId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

@@ -24,15 +24,15 @@ function App() {
   //vérifie si l'utilisateur est un administrateur sur App pour qu'elle se fasse à tout moment et mette à jour les composants
   let token = localStorage.getItem("token");
   //si l'utilisateur administrateur se déconnecte isAdmin passe à false
+  console.log(isAdmin)
   if (token == null && isAdmin == true) {
     set_admin(false);
   }
-  //si l'utilisateur se connecte et qu'il est un admin on met isAdmin à true
+
   if (token != null && isAdmin == false) {
     getme(localStorage.getItem("token")).then((result) => {
-      set_admin(result.admin);
+      set_admin(result.role === 'admin'); // Modifié ici
     });
-    console.log("token", localStorage.getItem("token"));
   }
 
   //Affiche le composatn dont la page est mise en current page

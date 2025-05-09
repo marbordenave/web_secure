@@ -44,10 +44,10 @@ function Navbar({ currentPage, setPage, Admin, parcName }) {
           {is_token_presence != null && (
             <>
               <p
-                className={currentPage === "parcours" ? "active" : ""}
-                onClick={() => setPage("parcours")}
+                className={currentPage === "reservation" ? "active" : ""}
+                onClick={() => setPage("reservation")}
               >
-                Mon Parcours
+                Reservation
               </p>
               <p
                 className={currentPage === "profil" ? "active" : ""}

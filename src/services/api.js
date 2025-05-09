@@ -89,19 +89,6 @@ export const getUsers = (token) => {
   return fetch("http://localhost:3000/api/users", requestOptions).then(handleResponse);
 };
 
-// Passer utilisateur en admin
-export const updateUsersAdmin = (token, userId) => {
-  return fetch(`http://localhost:3000/api/users/${userId}`, {
-    method: "PATCH", // PATCH pour modifier partiellement
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ isAdmin: true }),
-  }).then(handleResponse);
-};
-
 // Supprimer un utilisateur
 export const deleteUsers = (token, userId) => {
   const requestOptions = {
@@ -185,49 +172,7 @@ export const sendCommentaire = (token, attractionId, commentaire) => {
     body: JSON.stringify({ commentaire }),
   }).then(handleResponse);
 };
-// ---------------------- PARCOURS ----------------------
 
-// Ajouter au parcours
-export const sendParcours = (token, attractionId) => {
-  let uri = "http://localhost:3000/api/parcours";
-  var data = JSON.stringify({ attraction_id: attractionId, order: 0 });
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      Authorization: `Bearer ${token}`,
-    },
-    body: data,
-  };
-  return fetch(uri, requestOptions).then(handleResponse);
-};
-
-// Récupérer parcours
-export const getParcours = (token) => {
-  let uri = "http://localhost:3000/api/parcours";
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  return fetch(uri, requestOptions).then(handleResponse);
-};
-
-// Supprimer attraction du parcours
-export const deleteParcours = (token, attractionId) => {
-  return fetch(`http://localhost:3000/api/parcours/${attractionId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(handleResponse);
-};
 
 // ---------------------- PARC INFOS ----------------------
 

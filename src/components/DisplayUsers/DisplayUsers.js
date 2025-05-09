@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUsers, updateUsersAdmin, deleteUsers } from "../../services/api";
+import { getUsers, deleteUsers } from "../../services/api";
 
 //fonction pour afficher les différents utilisateurs et pour les supprimer ou leur ajouter des droits
 function DisplayUsers({ token }) {
@@ -68,14 +68,6 @@ function DisplayUsers({ token }) {
       <tr key={user.id} className="list-item">
         <td>{user.email}</td>
         <td>{user.admin ? "Oui" : "Non"}</td>
-        <td>
-          <button
-            className="btn-modifier"
-            onClick={() => handleAdmin(user.id, user.admin)}
-          >
-            {user.admin ? "Déjà administrateur" : "Ajouter administrateur"}{" "}
-          </button>
-        </td>
         {user.pseudo !== "admin" ? (
           <td>
             <button
@@ -101,7 +93,6 @@ function DisplayUsers({ token }) {
             <tr>
               <th>Mail</th>
               <th>Administrateur</th>
-              <th>Ajouter administrateur</th>
               <th>Supprimer</th>
             </tr>
           </thead>

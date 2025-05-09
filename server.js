@@ -15,13 +15,13 @@ const DB_FILE = 'db.json';
 app.use(cors());
 app.use(bodyParser.json());
 
-// Fonctions pour gérer la base de données
+// Functions to handle the database
 function loadDB() {
   try {
     const data = fs.readFileSync(DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (err) {
-    console.error("Erreur de lecture du fichier db.json:", err);
+    console.error("Error reading db.json file:", err);
     return {
       attractions: [],
       parc: {},
@@ -36,26 +36,26 @@ function saveDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-// Routes d'authentification
+// Authentication routes
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Email et mot de passe requis' });
+    return res.status(400).json({ error: 'Email and password are required' });
   }
-  console.log(req.body); 
+  console.log(req.body); // Log incoming request body
 
   const db = loadDB();
   const user = db.users.find(u => u.email === email);
 
   if (!user) {
-    return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
+    return res.status(401).json({ error: 'Invalid email or password' });
   }
-  console.log(user)
+  console.log(user); // Log found user
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
-    return res.status(401).json({ error: 'Email ou mot de passe incorrect' });
+    return res.status(401).json({ error: 'Invalid email or password' });
   }
 
   const token = jwt.sign(
@@ -79,7 +79,7 @@ app.get('/me', (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ error: 'Token manquant' });
+    return res.status(401).json({ error: 'Missing token' });
   }
 
   try {
@@ -88,7 +88,7 @@ app.get('/me', (req, res) => {
     const userExists = db.users.some(u => u.id === decoded.id);
 
     if (!userExists) {
-      return res.status(401).json({ error: 'Utilisateur introuvable' });
+      return res.status(401).json({ error: 'User not found' });
     }
 
     res.json({
@@ -98,7 +98,7 @@ app.get('/me', (req, res) => {
       isAdmin: decoded.role === 'admin'
     });
   } catch (err) {
-    res.status(401).json({ error: 'Token invalide' });
+    res.status(401).json({ error: 'Invalid token' });
   }
 });
 
@@ -106,36 +106,35 @@ app.post('/register', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Email et mot de passe requis' });
+    return res.status(400).json({ error: 'Email and password are required' });
   }
 
   const db = loadDB();
 
-  // Vérification plus robuste de l'email existant
+  // Robust check for existing email
   if (db.users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
-    return res.status(409).json({ error: 'Email déjà utilisé' });
+    return res.status(409).json({ error: 'Email already in use' });
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    
-    // Génération d'un ID cohérent
+
+    // Generate a consistent ID
     let newId;
     if (db.users.length > 0) {
-      // Convertit tous les IDs en nombres et prend le max
       const maxId = Math.max(...db.users.map(u => {
-        const idAsNumber = parseInt(u.id, 10); // Préciser la base (10) pour éviter des conversions incorrectes
-        return isNaN(idAsNumber) ? 0 : idAsNumber; // Si l'ID n'est pas un nombre valide, on le remplace par 0
+        const idAsNumber = parseInt(u.id, 10);
+        return isNaN(idAsNumber) ? 0 : idAsNumber;
       }));
-    
-      newId = (maxId + 1).toString(); // Incrémente le maxId pour générer un nouvel ID
+
+      newId = (maxId + 1).toString();
     } else {
-      newId = "1"; // Premier ID
+      newId = "1";
     }
-    
+
     const newUser = {
-      id: newId, // Toujours une string pour consistance
-      email: email.trim(), // Nettoyage de l'email
+      id: newId,
+      email: email.trim(),
       password: hashedPassword,
       role: 'user'
     };
@@ -144,16 +143,16 @@ app.post('/register', async (req, res) => {
     saveDB(db);
 
     res.status(201).json({ 
-      message: 'Utilisateur créé avec succès',
+      message: 'User successfully created',
       user: { id: newUser.id, email: newUser.email } 
     });
   } catch (err) {
-    console.error('Erreur lors de l\'inscription:', err);
-    res.status(500).json({ error: 'Erreur serveur' });
+    console.error('Error during registration:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
-// Routes pour les attractions
+// Attractions routes
 app.get('/api/attractions', (req, res) => {
   const db = loadDB();
   res.json(db.attractions);
@@ -174,7 +173,7 @@ app.post('/api/attractions', (req, res) => {
 app.put('/api/attractions/:id', (req, res) => {
   const db = loadDB();
   const index = db.attractions.findIndex(a => a.id === req.params.id);
-  if (index === -1) return res.status(404).json({ error: 'Attraction non trouvée' });
+  if (index === -1) return res.status(404).json({ error: 'Attraction not found' });
   db.attractions[index] = { ...db.attractions[index], ...req.body };
   saveDB(db);
   res.json(db.attractions[index]);
@@ -183,13 +182,13 @@ app.put('/api/attractions/:id', (req, res) => {
 app.delete('/api/attractions/:id', (req, res) => {
   const db = loadDB();
   const index = db.attractions.findIndex(a => a.id === req.params.id);
-  if (index === -1) return res.status(404).json({ error: 'Attraction non trouvée' });
+  if (index === -1) return res.status(404).json({ error: 'Attraction not found' });
   db.attractions.splice(index, 1);
   saveDB(db);
-  res.json({ message: 'Attraction supprimée avec succès' });
+  res.json({ message: 'Attraction successfully deleted' });
 });
 
-// Routes pour le parc
+// Park routes
 app.get('/api/parc', (req, res) => {
   const db = loadDB();
   res.json(db.parc);
@@ -202,95 +201,57 @@ app.put('/api/parc', (req, res) => {
   res.json(db.parc);
 });
 
-// Routes pour les tarifs
+// Tariffs routes
 app.get('/api/tarifs', (req, res) => {
   const db = loadDB();
   res.json(db.tarifs);
 });
 
-
+// User routes
 app.get('/api/users', (req, res) => {
   const db = loadDB();
   res.json(db.users);
 });
 
-// Mettre à jour un utilisateur existant
+// Update an existing user
 app.patch('/api/users/:id', (req, res) => {
   const db = loadDB();
   const index = db.users.findIndex(u => u.id === req.params.id);
-  if (index === -1) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+  if (index === -1) return res.status(404).json({ error: 'User not found' });
 
   db.users[index] = { ...db.users[index], ...req.body };
   saveDB(db);
   res.json(db.users[index]);
 });
 
-
-// Supprimer un utilisateur
+// Delete a user
 app.delete('/api/users/:id', (req, res) => {
   const db = loadDB();
   const index = db.users.findIndex(u => u.id === req.params.id);
-  if (index === -1) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+  if (index === -1) return res.status(404).json({ error: 'User not found' });
   db.users.splice(index, 1);
   saveDB(db);
-  res.json({ message: 'Utilisateur supprimé avec succès' });
+  res.json({ message: 'User successfully deleted' });
 });
 
-
-// Routes pour les parcours
-app.get('/api/parcours', (req, res) => {
-  try {
-    const db = loadDB();
-    const parcoursWithAttractions = db.parcours.map(p => {
-      const attraction = db.attractions.find(a => a.id === p.attraction_id);
-      return {
-        ...p,
-        attraction: attraction || null
-      };
-    });
-    res.json(parcoursWithAttractions);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json([]);
-  }
-});
-
-app.post('/api/parcours', (req, res) => {
-  const db = loadDB();
-  const newParcours = {
-    id: `parcours-${Date.now()}`,
-    ...req.body
-  };
-  db.parcours.push(newParcours);
-  saveDB(db);
-  res.status(201).json(newParcours);
-});
-
-app.delete('/api/parcours/:id', (req, res) => {
-  const db = loadDB();
-  db.parcours = db.parcours.filter(p => p.id !== req.params.id);
-  saveDB(db);
-  res.json({ message: 'Parcours supprimé' });
-});
-
-// Ajouter un commentaire à une attraction
+// Add a comment to an attraction
 app.post('/api/attractions/:id/commentaires', (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'Token manquant' });
+  if (!token) return res.status(401).json({ error: 'Missing token' });
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
     const db = loadDB();
     const attraction = db.attractions.find(a => a.id === req.params.id);
-    if (!attraction) return res.status(404).json({ error: 'Attraction non trouvée' });
+    if (!attraction) return res.status(404).json({ error: 'Attraction not found' });
 
     const { commentaire } = req.body;
     if (!commentaire || commentaire.trim() === '') {
-      return res.status(400).json({ error: 'Le commentaire ne peut pas être vide' });
+      return res.status(400).json({ error: 'Comment cannot be empty' });
     }
 
     const user = db.users.find(u => u.id === decoded.id);
-    if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+    if (!user) return res.status(404).json({ error: 'User not found' });
 
     const newComment = {
       id: Date.now().toString(),
@@ -304,16 +265,16 @@ app.post('/api/attractions/:id/commentaires', (req, res) => {
     saveDB(db);
     res.status(201).json(newComment);
   } catch (err) {
-    res.status(401).json({ error: 'Token invalide' });
+    res.status(401).json({ error: 'Invalid token' });
   }
 });
 
-// Middleware d'erreur
+// Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Erreur:', err);
-  res.status(500).json({ error: 'Erreur serveur' });
+  console.error('Error:', err);
+  res.status(500).json({ error: 'Server error' });
 });
 
 app.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });

@@ -8,7 +8,7 @@ import Navbar from "./components/NavBar/NavBar.js";
 import Attractions from "./pages/Attractions.js";
 import Connexion from "./pages/Connexion.js";
 import Profil from "./pages/Profil.js";
-import Parcours from "./pages/Parcours.js";
+import Reservation from "./pages/Reservation.js";
 import Footer from './components/Footer/Footer.js';
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
       {page === "connexion" && <Connexion setPage={setPage} />}
       {page === "profil" && <Profil setPage={setPage} />}
       {page === "attraction" && <Attractions setPage={setPage} />}
-      {page === "parcours" && <Parcours setPage={setPage} />}
+      {page === "reservation" && <Reservation setPage={setPage} />}
       {page === "accueil" && <Accueil setPage={setPage} />}
       {page === "inscription" && <Inscription setPage={setPage} />}
       {page === "admin" && <Administrateur setParcname={setParcName} />}

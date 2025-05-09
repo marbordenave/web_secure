@@ -2,154 +2,135 @@
   "attractions": [
     {
       "id": "1",
-      "nom": "Course de taureaux à Sévill",
-      "description": "Embarquez dans un train fougueux simulant une course de taureaux à travers les rues étroites de Séville, en faisant face à des virages serrés et des obstacles imprévisibles.",
-      "type": "Grand huit",
+      "nom": "Bull Run in Seville",
+      "description": "Hop on a wild train ride simulating a bull run through the narrow streets of Seville, facing tight turns and unpredictable obstacles.",
+      "type": "Roller Coaster",
       "statut": false,
       "duree": 5,
       "age_minimum": 12,
       "date_creation": "2024-04-16",
-      "image": "https://github.com/marbordenave/web_secure/blob/main/src/services/api.js",
+      "image": "/images/Bullrun.jpg",
       "commentaires": [
         {
-          "id": "1746704475987",
-          "userId": "3",
-          "userEmail": "test@example.com",
-          "texte": "lkzhg",
-          "date": "2025-05-08T11:41:15.987Z"
+          "id": "1",
+          "userId": "1",
+          "userEmail": "test1@example.com",
+          "texte": "An incredible rush! The tight turns made me feel like I was really in a bull run. Highly recommended for thrill-seekers!",
+          "date": "2025-05-09T10:25:00.000Z"
         },
         {
-          "id": "1746704502347",
-          "userId": "3",
-          "userEmail": "test@example.com",
-          "texte": "lkhqf",
-          "date": "2025-05-08T11:41:42.347Z"
-        },
-        {
-          "id": "1746710718326",
+          "id": "2",
           "userId": "2",
           "userEmail": "test2@example.com",
-          "texte": "flkzhf",
-          "date": "2025-05-08T13:25:18.326Z"
+          "texte": "The scenery along the British Adventure was stunning. Great for families, and the ride was smooth and fun.",
+          "date": "2025-05-09T11:00:00.000Z"
         },
         {
-          "id": "1746710954813",
+          "id": "3",
+          "userId": "1",
+          "userEmail": "test1@example.com",
+          "texte": "I loved the Ha Long Bay cruise! Very relaxing and beautiful, perfect break from the more intense rides.",
+          "date": "2025-05-09T11:45:00.000Z"
+        },
+        {
+          "id": "4",
           "userId": "2",
           "userEmail": "test2@example.com",
-          "texte": "flekhflkeh",
-          "date": "2025-05-08T13:29:14.813Z"
+          "texte": "The Flight Over Lisbon ride offers an amazing view of the city. Some sharp dives caught me by surprise!",
+          "date": "2025-05-09T12:10:00.000Z"
         }
       ]
     },
     {
       "id": "2",
-      "nom": "Aventure britannique",
-      "description": "Embarquez dans une bouée et naviguez à travers les rivières tumultueuses du Royaume-Uni, en passant devant des châteaux médiévaux, des villages pittoresques et des paysages emblématiques.",
-      "type": "Bouée dans l'eau",
+      "nom": "British Adventure",
+      "description": "Hop into a raft and navigate the tumultuous rivers of the UK, passing by medieval castles, picturesque villages, and iconic landscapes.",
+      "type": "Water Raft Ride",
       "statut": true,
       "duree": 8,
       "age_minimum": 6,
       "date_creation": "2024-04-16",
-      "image": "image_royaume_uni.jpg",
+      "image": "/images/BritishAdventure.jpg",
       "commentaires": []
     },
     {
       "id": "3",
-      "nom": "Croisière dans la Baie d'Ha Long",
-      "description": "Embarquez dans un bateau et partez pour une croisière relaxante à travers les eaux calmes de la baie d'Ha Long, en passant devant ses formations rocheuses emblématiques et ses grottes cachées.",
-      "type": "Croisière / Découverte",
+      "nom": "Ha Long Bay Cruise",
+      "description": "Set sail on a relaxing cruise through the calm waters of Ha Long Bay, passing by its iconic rock formations and hidden caves.",
+      "type": "Cruise / Exploration",
       "statut": true,
       "duree": 30,
       "age_minimum": 5,
       "date_creation": "2024-04-16",
-      "image": "image_baie_halong.jpg",
+      "image": "/images/Baiehalong.jpg",
       "commentaires": []
     },
     {
       "id": "4",
-      "nom": "Descente dans la Jungle Brésilienne",
-      "description": "Embarquez dans des radeaux gonflables pour une descente enivrante à travers les rapides tumultueux de la jungle amazonienne, en évitant les cascades et en découvrant une faune exotique.",
-      "type": "Bouée dans l'eau",
+      "nom": "Descent into the Brazilian Jungle",
+      "description": "Ride inflatable rafts through the thrilling rapids of the Amazon jungle, dodging waterfalls and encountering exotic wildlife.",
+      "type": "Water Raft Ride",
       "statut": false,
       "duree": 6,
       "age_minimum": 12,
       "date_creation": "2024-04-16",
-      "image": "image_amazonie.jpg",
+      "image": "/images/Amazonie.jpg",
       "commentaires": []
     },
     {
       "id": "5",
-      "nom": "Ascension dans les Rocheuses",
-      "description": "Embarquez dans un train à grande vitesse pour une ascension vertigineuse à travers les montagnes Rocheuses du Canada, avec des boucles, des vrilles et des descentes à couper le souffle.",
-      "type": "Grand huit",
+      "nom": "Ascent in the Rockies",
+      "description": "Board a high-speed train for a breathtaking ascent through the Canadian Rockies, featuring loops, twists, and thrilling drops.",
+      "type": "Roller Coaster",
       "statut": false,
       "duree": 3,
       "age_minimum": 8,
       "date_creation": "2024-04-16",
-      "image": "image_rocheuses.jpg",
+      "image": "/images/Rockies.jpg",
       "commentaires": []
     },
     {
       "id": "6",
-      "nom": "Vol au-dessus de Lisbonne",
-      "description": "Embarquez pour un vol palpitant au-dessus des toits de Lisbonne, avec des virages serrés et des plongées vertigineuses vous offrant une vue panoramique sur la ville.",
-      "type": "Grand huit",
+      "nom": "Flight Over Lisbon",
+      "description": "Embark on a thrilling flight over Lisbon's rooftops, with sharp turns and dizzying dives offering panoramic views of the city.",
+      "type": "Roller Coaster",
       "statut": true,
       "duree": 4,
       "age_minimum": 10,
       "date_creation": "2024-04-16",
       "image": "image_lisbonne.jpg",
       "commentaires": []
-    },
-    {
-      "id": "7",
-      "nom": "Voyage à Venise",
-      "description": "Embarquez dans une gondole et naviguez à travers les canaux sinueux de Venise, en admirant les palais vénitiens, les ponts romantiques et l'atmosphère magique de la ville.",
-      "type": "Croisière / Découverte",
-      "statut": true,
-      "duree": 20,
-      "age_minimum": 5,
-      "date_creation": "2024-04-16",
-      "image": "image_venise.jpg",
-      "commentaires": []
-    },
-    {
-      "id": "1746708760916",
-      "nom": "tes",
-      "description": "ofkhfg",
-      "type": 1,
-      "status": true,
-      "duree": "-12",
-      "age_minimum": "",
-      "date_creation": "2025-05-14",
-      "image": "https://github.com/marbordenave/web_secure/blob/main/src/services/api.js",
-      "commentaires": []
     }
   ],
-  "parc": {
-    "nom": "Parc Aventures",
-    "description": "Le parc d'attractions le plus excitant avec des montagnes russes et des aventures palpitantes."
+
+  "parc": 
+  {
+    "nom": "Adventure Park",
+    "description": "The most exciting amusement park with roller coasters and thrilling adventures."
   },
-  "tarifs": [
-    {
-      "id": "1",
-      "nom": "adulte",
-      "prix": 30,
-      "description": []
-    },
-    {
-      "id": "2",
-      "nom": "enfant",
-      "prix": 20,
-      "description": []
-    },
-    {
-      "id": "3",
-      "nom": "senior",
-      "prix": 15,
-      "description": []
-    }
-  ],
+"tarifs": [
+  {
+    "id": "1",
+    "nom": "Adulte",
+    "prix": 30,
+    "quantité": 1,
+    "description": "For visitors aged 18 to 64."
+  },
+  {
+    "id": "2",
+    "nom": "Child",
+    "prix": 20,
+    "quantité": 1,
+    "description": "For children aged 5 to 17."
+  },
+  {
+    "id": "3",
+    "nom": "Senior",
+    "prix": 15,
+    "quantité": 1,
+    "description": "For visitors aged 65 and over."
+  }
+],
   "parcours": [
     {
       "id": "cfd6",

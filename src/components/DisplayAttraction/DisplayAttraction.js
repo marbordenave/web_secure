@@ -75,20 +75,30 @@ function DisplayAttraction() {
               {selectedAttraction.duree}
             </p>
             <p>
-              <span className="detailsLabel">Age minimum:</span>{" "}
+              <span className="detailsLabel">Minimum:</span>{" "}
               {selectedAttraction.age_minimum}
-            </p>
-            <p>
-              <span className="detailsLabel">Attente:</span>{" "}
-              {selectedAttraction.attente}
             </p>
             <p className="detailsLabel">Commentaire:</p>
 
-            <ul>
-              {selectedAttraction.commentaires.map((commentaire, index) => (
-                <li key={index}>{commentaire.texte}</li>
-              ))}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Email</th>
+                  <th>Commentaire</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedAttraction.commentaires.map((commentaire, index) => (
+                  <tr key={index}>
+                    <td>{commentaire.userEmail}</td>
+                    <td>{commentaire.texte}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+
+
             {/* Si le form pour ajouter un commentaire n'est pas affiché on met un bouton pour le faire afficher si l'utilisateur est connecté
                         Si le form ajouter un commentaire est affiché on peut entrer un commentaire et l'ajouter */}
             {formCommentaire == false && token && (

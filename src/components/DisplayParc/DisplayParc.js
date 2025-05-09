@@ -14,7 +14,7 @@ function DisplayParc() {
   //On affiche le parc avec son nom et sa description
   return (
       <div className='donneesparc'>
-        <h2 className='parcnom'>Bienvenu dans le parc : {parc != undefined ? parc.nom : ''}</h2>
+        <h2 className='parcnom'>Welcome : {parc != undefined ? parc.nom : ''}</h2>
         <h3 className='parcdecription'>{parc != undefined ? parc.description : ''}</h3>
         <br></br>
       </div>

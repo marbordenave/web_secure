@@ -3,7 +3,7 @@ import '../App.css';
 import Tarif from '../components/Tarif';
 import DisplayParc from '../components/DisplayParc'
 
-//Dans l'accueil on affiche les informations du parc ainsi que les tarifs
+// In the home page we display the park information and rates
 function Accueil({ setPage }) {
   return (
     <div>

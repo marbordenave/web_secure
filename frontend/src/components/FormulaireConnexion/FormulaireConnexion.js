@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {logUser} from '../../services/api';
 
-// Fonction pour afficher le formulaire de connexion
+// Function to display the login form
 function FormulaireConnexion({setPage}) {
-  const [email, setEmail] = useState(''); // Changé de pseudo à email
+  const [email, setEmail] = useState(''); // Changed from username to email
   const [password, setPassword] = useState('');
   const [errorIdentifiant, setErrorIdentifiant] = useState('');
   
-  // Fonction pour réinitialiser les champs
+  // Function to reset fields
   function ResetAll(){
-    setEmail(''); // Changé ici aussi
+    setEmail(''); // Changed here too
     setPassword('');
   }
 
@@ -37,7 +37,7 @@ function FormulaireConnexion({setPage}) {
         <input type='password' id='password' onChange={(e) => setPassword(e.target.value)} value={password} />
       </div>
       <span className='error'>{errorIdentifiant}</span>
-      <button onClick={handleLog}>Se connecter</button>
+      <button onClick={handleLog}>Log in</button>
     </div>
     </>
   );

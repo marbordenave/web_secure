@@ -7,13 +7,13 @@ const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const rateLimit = require("express-rate-limit");
 const bodyParser = require("body-parser");
-const fs = require("fs"); // Ajoutez cette ligne
+const fs = require("fs"); // Add this line
 const checkRole = require("./middlewares/checkRole");
 const validate = require("./middlewares/validate");
 
 const app = express();
 //
-// 2. Applique le CORS (doit être avant les vérifications d’API key)
+// 2. Apply CORS (must be before API key checks)
 app.use(
   cors({
     origin: "http://localhost:3001",
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// 1. Gère les requêtes CORS préflight
+// 1. Handle CORS preflight requests
 app.options("*", cors());
 
 const PORT = 3000;
@@ -50,7 +50,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-//  3. Applique le rate limiter
+//  3. Apply rate limiter
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -66,7 +66,7 @@ app.use(
 // 4. Parse JSON
 app.use(bodyParser.json());
 
-// 5. Vérifie la clé API sauf sur certaines routes
+// 5. Check API key except on certain routes
 const checkApiKey = (req, res, next) => {
   const key = req.headers["x-api-key"];
   if (key !== process.env.API_KEY) {
@@ -77,7 +77,7 @@ const checkApiKey = (req, res, next) => {
 
 app.use((req, res, next) => {
   if (["/login", "/register", "/me"].includes(req.path)) return next();
-  if (req.method === "OPTIONS") return next(); // 🔑 NE PAS bloquer les préflight
+  if (req.method === "OPTIONS") return next(); // 🔑 DO NOT block preflight
   checkApiKey(req, res, next);
 });
 
@@ -103,7 +103,7 @@ function saveDB(data) {
 }
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Remplacer * par votre front en production
+  res.header("Access-Control-Allow-Origin", "*"); // Replace * with your frontend in production
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -116,8 +116,8 @@ app.use((req, res, next) => {
 app.post(
   "/login",
   [
-    body("email").isEmail().withMessage("Email invalide").normalizeEmail(),
-    body("password").notEmpty().withMessage("Mot de passe requis").trim(),
+    body("email").isEmail().withMessage("Invalid email").normalizeEmail(),
+    body("password").notEmpty().withMessage("Password required").trim(),
     validate,
   ],
   async (req, res) => {
@@ -128,7 +128,7 @@ app.post(
       const db = loadDB();
       console.log("Users in DB:", db.users);
 
-      // Insensible à la casse sur email
+      // Case insensitive on email
       const user = db.users.find(
         (u) => u.email.toLowerCase() === email.toLowerCase()
       );
@@ -197,10 +197,10 @@ app.get("/me", (req, res) => {
 app.post(
   "/register",
   [
-    body("email").isEmail().withMessage("Email invalide").normalizeEmail(),
+    body("email").isEmail().withMessage("Invalid email").normalizeEmail(),
     body("password")
       .isLength({ min: 6 })
-      .withMessage("Mot de passe requis")
+      .withMessage("Password required")
       .trim(),
     validate,
   ],
@@ -258,29 +258,29 @@ app.post(
   [
     body("nom")
       .isString()
-      .withMessage("Le nom doit être une chaîne de caractères")
+      .withMessage("The name must be a string")
       .notEmpty()
-      .withMessage("Le nom est requis")
+      .withMessage("Name is required")
       .trim()
       .escape(),
     body("description")
       .optional()
       .isString()
-      .withMessage("La description doit être une chaîne")
+      .withMessage("The description must be a string")
       .trim()
       .escape(),
     body("categorie")
       .optional()
       .isString()
-      .withMessage("La catégorie doit être une chaîne")
+      .withMessage("The category must be a string")
       .trim()
       .escape(),
     body("image")
       .optional()
       .isURL()
-      .withMessage("L'image doit être une URL valide")
+      .withMessage("The image must be a valid URL")
       .matches(/\.(jpg|jpeg|png|gif)$/i)
-      .withMessage("L'URL de l'image doit pointer vers un fichier image"),
+      .withMessage("The image URL must point to an image file"),
     validate,
   ],
   (req, res) => {
@@ -304,27 +304,27 @@ app.put(
     body("nom")
       .optional()
       .isString()
-      .withMessage("Le nom doit être une chaîne de caractères")
+      .withMessage("The name must be a string")
       .trim()
       .escape(),
     body("description")
       .optional()
       .isString()
-      .withMessage("La description doit être une chaîne")
+      .withMessage("The description must be a string")
       .trim()
       .escape(),
     body("categorie")
       .optional()
       .isString()
-      .withMessage("La catégorie doit être une chaîne")
+      .withMessage("The category must be a string")
       .trim()
       .escape(),
     body("image")
       .optional()
       .isURL()
-      .withMessage("L'image doit être une URL valide")
+      .withMessage("The image must be a valid URL")
       .matches(/\.(jpg|jpeg|png|gif)$/i)
-      .withMessage("L'URL de l'image doit pointer vers un fichier image"),
+      .withMessage("The image URL must point to an image file"),
     validate,
   ],
   (req, res) => {
@@ -368,10 +368,10 @@ app.put(
   authenticateJWT,
   checkRole("admin"),
   [
-    // Validation des champs possibles du parc
+    // Validation of possible parc fields
     body("nom").optional().isString().notEmpty().trim().escape(),
     body("description").optional().isString().trim().escape(),
-    // Ajoute les champs du parc ici avec validations
+    // Add parc fields here with validations
     validate,
   ],
   (req, res) => {
@@ -402,13 +402,13 @@ app.put(
     body("email")
       .optional()
       .isEmail()
-      .withMessage("Email invalide")
+      .withMessage("Invalid email")
       .normalizeEmail(),
     body("role")
       .optional()
       .isIn(["user", "admin"])
-      .withMessage("Role invalide"),
-    // Ne pas permettre de modifier le mot de passe ici sans procédure dédiée
+      .withMessage("Invalid role"),
+    // Do not allow modifying password here without dedicated procedure
     validate,
   ],
   (req, res) => {
@@ -442,7 +442,7 @@ app.post(
     body("commentaire")
       .isString()
       .notEmpty()
-      .withMessage("Le commentaire ne peut pas être vide")
+      .withMessage("Comment cannot be empty")
       .trim()
       .escape(),
     validate,
@@ -483,7 +483,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Server error" });
 });
 
-// Avant app.listen, après toutes les routes
+// Before app.listen, after all routes
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });

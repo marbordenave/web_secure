@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./NavBar.css";
 import BoutonDeconnexion from "../BoutonDeconnexion/BoutonDeconnexion";
 
-//Fonction qui affiche les pages sur lesquelles l'utilisateur peut naviger en fonction de sa connexion et de son statut
+// Function that displays the pages the user can navigate to based on their login status and role
 function Navbar({ currentPage, setPage, Admin, parcName }) {
   let is_token_presence = localStorage.getItem("token");
 
-  //On recupère les différents onglets sur lesquels on va pouvoir naviguer avec des conditions pour certaines pages
-  //Les conditions sont l'absence d'un token, la présence d'un token et le fait que l'utilisateur soit un administrateur
+  // We get the different tabs we can navigate to with conditions for certain pages
+  // The conditions are the absence of a token, the presence of a token and whether the user is an administrator
   return (
     <header>
       <h3>{parcName != undefined ? parcName : ""}</h3>
@@ -17,13 +17,13 @@ function Navbar({ currentPage, setPage, Admin, parcName }) {
             className={currentPage === "accueil" ? "active" : ""}
             onClick={() => setPage("accueil")}
           >
-            Accueil
+            Home
           </p>
           <p
             className={currentPage === "attraction" ? "active" : ""}
             onClick={() => setPage("attraction")}
           >
-            Attraction
+            Attractions
           </p>
           {is_token_presence == null && (
             <>
@@ -31,13 +31,13 @@ function Navbar({ currentPage, setPage, Admin, parcName }) {
                 className={currentPage === "connexion" ? "active" : ""}
                 onClick={() => setPage("connexion")}
               >
-                Connexion
+                Login
               </p>
               <p
                 className={currentPage === "inscription" ? "active" : ""}
                 onClick={() => setPage("inscription")}
               >
-                Inscription
+                Register
               </p>
             </>
           )}
@@ -53,7 +53,7 @@ function Navbar({ currentPage, setPage, Admin, parcName }) {
                 className={currentPage === "profil" ? "active" : ""}
                 onClick={() => setPage("profil")}
               >
-                Mon Profil
+                My Profile
               </p>
             </>
           )}
@@ -62,9 +62,9 @@ function Navbar({ currentPage, setPage, Admin, parcName }) {
               className={currentPage === "admin" ? "active" : ""}
               onClick={() => setPage("admin")}
             >
-              Gestion
+              Park
               <br />
-              du parc{" "}
+              Management{" "}
             </p>
           )}
           {is_token_presence != null && <BoutonDeconnexion setPage={setPage} />}

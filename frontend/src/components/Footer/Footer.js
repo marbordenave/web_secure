@@ -4,7 +4,7 @@ function Footer({ setPage }) {
   return (
     <div className="footer">
       <p className="copyright">
-        Site create by Marine Bordenave, Elise Strub et Ali Riahi
+        Site created by Marine Bordenave, Elise Strub and Ali Riahi
       </p>
     </div>
   );

@@ -1,14 +1,22 @@
-.footer{
-    padding: 1% 0;
-    margin-top : 3%; 
-    background-color: #cbf3f0;
-    color: #4b4c4d;
+.footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
- 
+
 .copyright {
     text-align: center;
-    font-size: 0.8125em;
-    color: #747677;
-    margin-bottom: 0;
-    align-self: center;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+    }
 }

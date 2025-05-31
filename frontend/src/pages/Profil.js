@@ -3,11 +3,11 @@ import '../App.css';
 import Profils from '../components/Profils' 
 import BoutonDeconnexion from '../components/BoutonDeconnexion/BoutonDeconnexion';
 
-//page de profil avec la possibilité de le modifier et de se déconnecter
+// Profile page with the ability to modify it and log out
 function Profil({setPage}) {
   return (
     <div>
-        <h1>Mon Profil</h1>
+        <h1>My Profile</h1>
         <Profils />
         < BoutonDeconnexion setPage={setPage}/>
     </div>

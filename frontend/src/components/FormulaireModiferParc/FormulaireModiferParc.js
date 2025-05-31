@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { getMyParc, updateMyParc } from "../../services/api";
-//Fonction pour afficher et permettre de modifier les informations du parc
+// Function to display and allow modification of park information
 function FormulaireModiferParc({ setParcName }) {
   const [parc, setParc] = useState({ nom: "", description: "" });
   const [ModifPark, setModifPark] = useState(false);
 
   useEffect(() => {
-    // Lorsque le composant a été rendu, on récupère les infos du parc.
+    // When the component has been rendered, we get the park information
     getMyParc().then((data) => setParc(data));
   }, []);
 
-  //Fonction qui effectue les modifications de valeur des champs npm et description
+  // Function that performs modifications of the name and description fields
   function handleChange(e) {
-    //On recupère l'id du parc
+    // Get the park id
     const id = e.target.id;
     const value = e.target.value;
-    //On change ses info
+    // Change its information
     setParc((parc) => ({ ...parc, [id]: value }));
     setModifPark(false);
   }
 
-  //Quand on appuie sur modifier on lance la fonction pour mettre à jour les infos du parc
+  // When we click on modify, we launch the function to update the park information
   function handleUpdate() {
-    //appel à l'API
+    // API call
     updateMyParc(
       localStorage.getItem("token"),
       parc.nom,
       parc.description
     ).catch((error) => {
       console.error(
-        "Une erreur s'est produite lors de la mise à jour : ",
+        "An error occurred during the update: ",
         error
       );
     });
@@ -37,14 +37,14 @@ function FormulaireModiferParc({ setParcName }) {
     setModifPark(true);
   }
 
-  //On affiche un formulaire dans lequel les infos du parc sont rentrées et peuvent être modifiées
+  // Display a form in which park information is entered and can be modified
   return (
     <>
-      <h2>Modification des données du parc</h2>
+      <h2>Modify Park Information</h2>
       <div id="formulaire">
-        <label htmlFor="parcname">Nom du parc</label>
+        <label htmlFor="parcname">Park Name</label>
         <input type="text" id="nom" value={parc.nom} onChange={handleChange} />
-        <label htmlFor="Description">Description du parc</label>
+        <label htmlFor="Description">Park Description</label>
         <textarea
           rows="3"
           cols="93"
@@ -52,9 +52,9 @@ function FormulaireModiferParc({ setParcName }) {
           value={parc.description}
           onChange={handleChange}
         />
-        <button onClick={handleUpdate}>Modifier</button>
+        <button onClick={handleUpdate}>Modify</button>
         {ModifPark === true && (
-          <p id="actionValide">Les informations du parc ont été modifiées</p>
+          <p id="actionValide">Park information has been modified</p>
         )}
       </div>
     </>

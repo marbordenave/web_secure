@@ -90,7 +90,7 @@ function ModificationAttraction({ token }) {
               handleDeleteAttraction(attraction.id, attraction.nom)
             }
           >
-            Supprimer
+            Delete
           </button>
         </td>
         <td>
@@ -98,7 +98,7 @@ function ModificationAttraction({ token }) {
             className="btn-modifier"
             onClick={() => handleEditAttraction(attraction)}
           >
-            Modifier
+            Edit
           </button>
         </td>
         <td>{attraction.nom}</td>
@@ -146,18 +146,18 @@ function ModificationAttraction({ token }) {
   //permet de gérer l'affichage des popup de delete et d'edition d'attractions
   return (
     <div>
-      <h2>Gestion des attractions</h2>
+      <h2>Attractions Management</h2>
       <div className="divtab">
         <table>
           <thead>
             <tr>
-              <th>Supprimer</th>
-              <th>Modifier</th>
-              <th>Nom</th>
+              <th>Delete</th>
+              <th>Edit</th>
+              <th>Name</th>
               <th>Description</th>
-              <th>Durée</th>
-              <th>Âge minimum</th>
-              <th>Date de création</th>
+              <th>Duration</th>
+              <th>Minimum Age</th>
+              <th>Creation Date</th>
               <th>Image</th>
             </tr>
           </thead>
@@ -168,7 +168,7 @@ function ModificationAttraction({ token }) {
           <div className="popup-bg active">
             <div className="popupDelete">
               <p>
-                Etes-vous sûr de vouloir supprimer cet attraction:{" "}
+                Are you sure you want to delete this attraction: {" "}
                 {popupDeleteNom}
               </p>
               <div className="btns">
@@ -176,13 +176,13 @@ function ModificationAttraction({ token }) {
                   className="btn-supprimer"
                   onClick={() => deleteAttractionById(popupDeleteId)}
                 >
-                  Supprimer
+                  Delete
                 </button>
                 <button
                   className="btn-annuler"
                   onClick={() => closePopupDelete()}
                 >
-                  Annuler
+                  Cancel
                 </button>
               </div>
             </div>
@@ -192,7 +192,7 @@ function ModificationAttraction({ token }) {
         {popupEdit && editAttractionData && (
           <div className="popup-bg active">
             <div className="popupEdit">
-              <h2>Modifier l'attraction</h2>
+              <h2>Edit Attraction</h2>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -200,7 +200,7 @@ function ModificationAttraction({ token }) {
                 }}
               >
                 <div>
-                  <label htmlFor="nom">Nom</label>
+                  <label htmlFor="nom">Name</label>
                   <input
                     type="text"
                     name="nom"
@@ -219,7 +219,7 @@ function ModificationAttraction({ token }) {
                   />
                 </div>
                 <div>
-                  <label htmlFor="duree">Durée</label>
+                  <label htmlFor="duree">Duration</label>
                   <input
                     type="number"
                     name="duree"
@@ -228,7 +228,7 @@ function ModificationAttraction({ token }) {
                   />
                 </div>
                 <div>
-                  <label htmlFor="age_minimum">Âge minimum</label>
+                  <label htmlFor="age_minimum">Minimum Age</label>
                   <input
                     type="number"
                     name="age_minimum"
@@ -237,7 +237,7 @@ function ModificationAttraction({ token }) {
                   />
                 </div>
                 <div>
-                  <label htmlFor="date_creation">Date création</label>
+                  <label htmlFor="date_creation">Creation Date</label>
                   <input
                     type="date"
                     name="date_creation"
@@ -256,13 +256,13 @@ function ModificationAttraction({ token }) {
                 </div>
                 <div className="btns">
                   <button className="btn-enregistrer" type="submit">
-                    Enregistrer
+                    Save
                   </button>
                   <button
                     className="btn-annuler"
                     onClick={() => setEditAttractionData(null)}
                   >
-                    Annuler
+                    Cancel
                   </button>
                 </div>
               </form>

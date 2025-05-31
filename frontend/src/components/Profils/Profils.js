@@ -1,36 +1,36 @@
 import React, {useState, useEffect} from 'react';
 import {getme, updateuser} from '../../services/api';
 
-//Fonction pour la page de profil
+// Function for the profile page
 function Profils() {
   const [email, setMail] = useState('');
-  const [newmail, setNewMail] = useState(null); // Initialisé à null pour éviter l'erreur
+  const [newmail, setNewMail] = useState(null); // Initialized to null to avoid the error
   const [id, setId] = useState();
   const [change, setWantChange] = useState(false);
 
   useEffect(() => {
-    // Lorsque le composant a été rendu, on récupère les infos de l'utilisateur
+    // When the component is rendered, we get the user's info
     getuserinfo();
   }, []);
 
-  // On récupère les informations de l'utilisateur
+  // We get the user's information
   const getuserinfo = () => {
     getme(localStorage.getItem('token'))
       .then(result => {
         setMail(result.email);
         setId(result.id);
-        // On initialise newmail avec la valeur actuelle du mail
+        // We initialize newmail with the current mail value
         setNewMail(result.mail);
       });
   }
 
-  // Si il y a un changement dans le mail on l'enregistre
+  // If there is a change in the email, we save it
   function handleChangeMail(e) {
     let value = e.target.value;
     setNewMail(value);
   }
 
-  // Si le bouton pour valider la modification est cliqué on effectue les changements
+  // If the button to validate the modification is clicked, we make the changes
   function handleUpdate() {
     updateuser(localStorage.getItem('token'),id,newmail)
       .then(result => {
@@ -38,32 +38,32 @@ function Profils() {
         setWantChange(false);
       })
       .catch(error => {
-        console.error("Une erreur s'est produite lors de la mise à jour : ", error);
+        console.error("An error occurred during the update: ", error);
       });
   }
 
-  // On affiche un formulaire avec les informations des utilisateurs et un bouton pour pouvoir modifier les informations.
+  // We display a form with the user's information and a button to allow modifying the information.
   return (
     <div id='formulaire'>
-      <label>Adresse Mail</label>
+      <label>Email Address</label>
       <p>{email}</p>
       
-      {/* Bouton pour passer en mode modification */}
+      {/* Button to switch to edit mode */}
       {!change && (
-        <button onClick={() => setWantChange(true)}>Modifier</button>
+        <button onClick={() => setWantChange(true)}>Edit</button>
       )}
       
-      {/* Formulaire de modification */}
+      {/* Edit form */}
       {change && (
         <>
-          <label>Modifier Adresse Mail</label>
+          <label>Edit Email Address</label>
           <input 
             type='email' 
             id='mail' 
-            value={newmail || ''} // Solution pour l'erreur controlled/uncontrolled
+            value={newmail || ''} // Solution for controlled/uncontrolled error
             onChange={handleChangeMail}
           />
-          <button onClick={handleUpdate}>Valider la modification</button>
+          <button onClick={handleUpdate}>Save Changes</button>
         </>
       )}
     </div>

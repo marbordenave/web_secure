@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { sendAttraction } from "../../services/api";
 
-//Ajouter une attaction
+// Add an attraction
 function AjouterAttractions() {
   const [nom, setNom] = useState("");
   const [description, setDescription] = useState("");
@@ -11,7 +11,7 @@ function AjouterAttractions() {
   const [image, setImage] = useState("");
   const [AttrCree, setAttrCree] = useState(false);
 
-  //On ajoute l'attraction avec l'API et on vide tout les states
+  // Add the attraction with the API and clear all states
   const handleAttraction = () => {
     let token = localStorage.getItem("token");
     sendAttraction(
@@ -43,13 +43,13 @@ function AjouterAttractions() {
     setImage("");
   };
 
-  //On affiche un formulaire pour pouvoir rentrer toutes les informations des différentes attractions
+  // Display a form to enter all the information for different attractions
   return (
     <div>
-      <h2>Ajout d'attraction</h2>
+      <h2>Add Attraction</h2>
       <div id="formulaire">
         <div>
-          <label htmlFor="nom">Nom</label>
+          <label htmlFor="nom">Name</label>
           <input
             type="text"
             id="nom"
@@ -67,7 +67,7 @@ function AjouterAttractions() {
           />
         </div>
         <div>
-          <label htmlFor="duree">Durée</label>
+          <label htmlFor="duree">Duration</label>
           <input
             type="number"
             id="duree"
@@ -76,7 +76,7 @@ function AjouterAttractions() {
           />
         </div>
         <div>
-          <label htmlFor="age_minimum">Age minimum</label>
+          <label htmlFor="age_minimum">Minimum Age</label>
           <input
             type="number"
             id="age_minimum"
@@ -85,7 +85,7 @@ function AjouterAttractions() {
           />
         </div>
         <div>
-          <label htmlFor="date_creation">Date création</label>
+          <label htmlFor="date_creation">Creation Date</label>
           <input
             type="date"
             id="date_creation"
@@ -94,7 +94,7 @@ function AjouterAttractions() {
           />
         </div>
         <div>
-          <label htmlFor="image">Image (donnez le lien https)</label>
+          <label htmlFor="image">Image (provide https link)</label>
           <input
             type="text"
             id="image"
@@ -102,8 +102,8 @@ function AjouterAttractions() {
             onChange={(e) => setImage(e.target.value)}
           />
         </div>
-        <button onClick={handleAttraction}>Ajout Attraction</button>
-        {AttrCree === true && <p id="actionValide">Attraction ajoutée</p>}
+        <button onClick={handleAttraction}>Add Attraction</button>
+        {AttrCree === true && <p id="actionValide">Attraction added</p>}
       </div>
     </div>
   );

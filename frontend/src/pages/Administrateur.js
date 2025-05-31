@@ -1,58 +1,67 @@
-import React from "react";
-import "../App.css";
+import React from 'react';
 import FormulaireModiferParc from "../components/FormulaireModiferParc";
 import FormulaireAttraction from "../components/FormulaireAttraction";
 import ModificationAttraction from "../components/ModificationAttraction/ModificationAttraction";
 import DisplayUsers from "../components/DisplayUsers";
-import "./Administrateur.css";
+import './Administrateur.css';
 
-//Page de gestion du parc avec le formulaire pour modifier le parc, la gestion des utilisateurs
-//le formulaire de création d'attraction et la gestion des attractions
 function Administrateur({ setParcname }) {
-  let token = localStorage.getItem("token");
-  return (
-    <div>
-      <h1>Page de l'administrateur</h1>
-      <ol className="sommaire" id="Sommaire">
-        <li>
-          <a href="#Parc">Modifier le parc</a>
-        </li>
-        <li>
-          <a href="#User">Gérer les utilisateurs</a>
-        </li>
-        <li>
-          <a href="#CreerAtt">Ajouter une attraction</a>
-        </li>
-        <li>
-          <a href="#Attra">Gérer les attractions</a>
-        </li>
-      </ol>
-      <div id="Parc">
-        <FormulaireModiferParc setParcName={setParcname} />
-        <button className="RevenirSommaire">
-          <a href="#Sommaire">Revenir au sommaire </a>
-        </button>
-      </div>
-      <div id="User">
-        <DisplayUsers token={token} />
-        <button className="RevenirSommaire">
-          <a href="#Sommaire">Revenir au sommaire </a>
-        </button>
-      </div>
-      <div id="CreerAtt">
-        <FormulaireAttraction token={token} />
-      </div>
-      <button className="RevenirSommaire">
-        <a href="#Sommaire">Revenir au sommaire </a>
-      </button>
-      <div id="Attra">
-        <ModificationAttraction token={token} />
-        <button className="RevenirSommaire">
-          <a href="#Sommaire">Revenir au sommaire </a>
-        </button>
-      </div>
-    </div>
-  );
+    let token = localStorage.getItem("token");
+
+    return (
+        <div className="admin-container">
+            <h1>Park Management</h1>
+            <div className="admin-grid">
+                <a href="#modify-park" className="admin-card modify-park">
+                    <div className="icon">🏞️</div>
+                    <h3>Modify Park</h3>
+                    <p>Update park information, description, and settings</p>
+                    <span className="btn">Modify Park</span>
+                </a>
+
+                <a href="#manage-users" className="admin-card manage-users">
+                    <div className="icon">👥</div>
+                    <h3>Manage Users</h3>
+                    <p>View, edit, and manage user accounts and permissions</p>
+                    <span className="btn">Manage Users</span>
+                </a>
+
+                <a href="#add-attraction" className="admin-card add-attraction">
+                    <div className="icon">🎡</div>
+                    <h3>Add Attraction</h3>
+                    <p>Create and add new attractions to the park</p>
+                    <span className="btn">Add Attraction</span>
+                </a>
+
+                <a href="#manage-attractions" className="admin-card manage-attractions">
+                    <div className="icon">🎢</div>
+                    <h3>Manage Attractions</h3>
+                    <p>Edit, update, or remove existing attractions</p>
+                    <span className="btn">Manage Attractions</span>
+                </a>
+            </div>
+
+            <div id="modify-park" className="section">
+                <FormulaireModiferParc setParcName={setParcname} />
+                <a href="#" className="back-to-top">Back to top</a>
+            </div>
+
+            <div id="manage-users" className="section">
+                <DisplayUsers token={token} />
+                <a href="#" className="back-to-top">Back to top</a>
+            </div>
+
+            <div id="add-attraction" className="section">
+                <FormulaireAttraction token={token} />
+                <a href="#" className="back-to-top">Back to top</a>
+            </div>
+
+            <div id="manage-attractions" className="section">
+                <ModificationAttraction token={token} />
+                <a href="#" className="back-to-top">Back to top</a>
+            </div>
+        </div>
+    );
 }
 
 export default Administrateur;

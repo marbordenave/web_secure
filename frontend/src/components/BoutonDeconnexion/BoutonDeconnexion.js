@@ -1,23 +1,23 @@
 import React,{useState} from 'react';
 
-//Boutton pour faire en sorte que l'utilisateur se déconnecte
+// Button to allow the user to log out
 function BoutonDeconnexion({setPage}) {
 const [token,setToken]=useState(localStorage.getItem("token"))
 
   function handleLogout(){
-    //Si le bouton est cliqué on va déconnecter l'utilisateur
-    //on clear le localStorage(pour enlever le token)
+    // If the button is clicked, log out the user
+    // Clear localStorage (to remove the token)
     localStorage.clear();
-    //On set le token à undefined
+    // Set the token to undefined
     setToken(undefined)
-    //On revient sur la page pour se déconnecter
+    // Return to the login page
     setPage('connexion');
   }
 
-  //On return juste le bouton si le token est non null
+  // Only return the button if the token is not null
   return (
     <>
-      {token && <button onClick={handleLogout}>Se Deconnecter</button>}
+      {token && <button onClick={handleLogout}>Log out</button>}
     </>
   );
 }

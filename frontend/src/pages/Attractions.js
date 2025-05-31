@@ -2,11 +2,11 @@ import React from 'react';
 import '../App.css';
 import DisplayAttraction from '../components/DisplayAttraction';
 
-//Page d'affichage des attractions
+// Attractions display page
 function Attractions({ setPage }) {
   return (
     <div className="Home">
-      <h1>Nos attractions</h1>
+      <h1>Our attractions</h1>
       <DisplayAttraction/>
     </div>
   );

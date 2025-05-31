@@ -1,108 +1,142 @@
-
 * {
-    font-family: sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-}
-h1 {
-    text-align: center;
-    padding : 4%; 
+    box-sizing: border-box;
 }
 
-h2 {
-    text-align: center;
-    padding : 4%; 
-}
-p{
-    text-align: center;
-}
-
-/* CSS pour les formulaires par défaut (formulaire inscription, de connextion, des formulaires..)*/
-#formulaire{
-    margin:auto;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    border-top: solid 5px #ffbf69    ;
-    padding: 50px;
-    width: 60%;
+:root {
+    --primary-color: #2ec4b6;
+    --secondary-color: #ff9f1c;
+    --accent-color: #ffbf69;
+    --text-color: #2b2d42;
+    --background-color: #f8f9fa;
+    --error-color: #e63946;
+    --success-color: #2a9d8f;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-input, label, textarea{
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+h1, h2 {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+p {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+/* Form Styles */
+#formulaire {
+    margin: 2rem auto;
+    box-shadow: var(--shadow);
+    border-top: solid 5px var(--accent-color);
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    border-radius: 8px;
+}
+
+input, label, textarea {
     display: block;
     width: 100%;
-    margin: 7px 0;
-    font-size: 1.3em;
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+input, textarea {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(46, 196, 182, 0.2);
 }
 
 button {
-    padding: auto; 
-    display: block;
-    background: #ff9f1c; 
-    width: 12vw;
-    height: 5vw;
+    padding: 0.8rem 1.5rem;
+    background: var(--secondary-color);
     color: white;
-    text-align: center;
-    align-items: center;
-    padding: 0.5vw; 
-    border-radius: 5%;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.5s;
-    font-size: 80%;
-    margin: 10% auto;
-    border : none;
+    transition: var(--transition);
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 1rem auto;
+    display: block;
+    min-width: 120px;
 }
 
 button:hover {
-    background-color: #ffbf3a;
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
-
 .error {
-    font-size: 0.9em;
-    color: rgb(150, 0, 0);
+    font-size: 0.9rem;
+    color: var(--error-color);
+    margin: 0.5rem 0;
 }
 
 .valid {
-    font-size: 0.9em;
-    color: rgb(17, 150, 0);
-
+    font-size: 0.9rem;
+    color: var(--success-color);
+    margin: 0.5rem 0;
 }
 
-/* CSS pour les tableaux : utilisé pour la tableau des utilisateurs, des attractions et des parcours */
-.divtab{
-    margin: auto; 
+/* Table Styles */
+.divtab {
+    margin: 2rem auto;
     overflow-x: auto;
-    width: 60%;
-
-    }
-
+    width: 90%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
 
 table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  thead th {
-    background-color: #f2f2f2;
-    padding: 2%;
-    text-align: left;
-  }
-  
-  tbody tr:nth-child(even) {
-    background-color: #f9f9f9; 
-  }
-  
-  tbody td {
-    border-bottom: 1px solid #ddd;
-    padding: 3%;
-  }
-  
-  .list-item:hover {
-    background-color: #e5e5e5; 
-  }
+}
 
- 
-/* CSS pour les popups */
-  
+thead th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tbody td {
+    border-bottom: 1px solid #eee;
+    padding: 1rem;
+}
+
+.list-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Popup Styles */
 .popup-bg {
     display: none;
     align-items: center;
@@ -112,80 +146,63 @@ table {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    overflow-y: auto; 
-    margin: 2% auto; 
-    padding: 3%; 
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
 }
 
-
-
-p{
-    color : black; 
-}
 .popup-bg.active {
     display: flex;
 }
 
-.popupDelete {
-    background: white;
-    width: 70%;
-    padding: 5%;
-    border-radius: 2%;
-}
-
-
-.popupEdit {
+.popupDelete, .popupEdit {
     background: white;
     width: 90%;
-    padding : 5%;
-    box-sizing: border-box;
-    padding-top : 50%; 
-  
-}
-
-.popupEdit form label {
-    display: block;
-    margin-bottom: 1%;
-    color: black;
-}
-
-.popupEdit form input {
-    width: 100%;
-    padding: 1%;
-    border-radius: 5%;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    max-width: 500px;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
 }
 
 .popup-bg .btns {
     display: flex;
-    justify-content: space-around;
-
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
-/* CSS pour les boutons de bases */
-
-.btn-enregistrer{
-    background: green;
+/* Button Variants */
+.btn-enregistrer {
+    background: var(--success-color);
 }
-.btn-supprimer{
-    background: rgb(194, 23, 23);
+
+.btn-supprimer {
+    background: var(--error-color);
 }
 
 .btn-annuler {
-    background: rgb(172, 172, 172);
+    background: #6c757d;
 }
 
-.btn-supprimer:hover {
-    background: rgb(52, 52, 52);
-}
-
-.btn-enregistrer:hover{
-    background: rgb(52, 52, 52);
-}
-
+.btn-enregistrer:hover,
+.btn-supprimer:hover,
 .btn-annuler:hover {
-    background: rgb(172, 172, 172);
-    background: rgb(52, 52, 52);
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #formulaire {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    .divtab {
+        width: 95%;
+    }
+
+    button {
+        width: 100%;
+    }
 }

@@ -16,13 +16,13 @@ function DisplayAttraction() {
     });
   }, [selectedAttraction]);
 
-  //fonction pour afficher les détails des attractions
+  // Function to display attraction details
   const afficherDetails = (attraction) => {
     setSelectedAttraction(attraction);
     setAjoutCommentaire(false);
   };
 
-  //Fonction faisant appel à l'API pour ajouter un commentaire
+  // Function calling the API to add a comment
   const ajouterCommentaire = (attractionId, commentaire) => {
     sendCommentaire(token, attractionId, commentaire)
       .then(() => {
@@ -32,15 +32,15 @@ function DisplayAttraction() {
       })
       .catch((error) => {
         console.error(
-          "Une erreur s'est produite lors de l'envoi du commentaire :",
+          "An error occurred while sending the comment:",
           error
         );
       });
   };
 
-  //Fonction pour afficher les attractions avec leurs informations essentielles
+  // Function to display attractions with their essential information
   const AfficheAttraction = ({ nom, duree, id, image }) => {
-    //on affiche son image, son nom, son temps d'attente
+    // Display its image, name, and wait time
     return (
       <article className="afficheAttraction">
         <img src={image} alt={nom} />
@@ -58,7 +58,7 @@ function DisplayAttraction() {
               className="btn-supprimer"
               onClick={() => setSelectedAttraction(null)}
             >
-              Fermer
+              Close
             </button>
           </div>
           <div>
@@ -71,20 +71,20 @@ function DisplayAttraction() {
               {selectedAttraction.description}
             </p>
             <p>
-              <span className="detailsLabel">Durée:</span>{" "}
+              <span className="detailsLabel">Duration:</span>{" "}
               {selectedAttraction.duree}
             </p>
             <p>
               <span className="detailsLabel">Minimum:</span>{" "}
               {selectedAttraction.age_minimum}
             </p>
-            <p className="detailsLabel">Commentaire:</p>
+            <p className="detailsLabel">Comments:</p>
 
             <table>
               <thead>
                 <tr>
                   <th>Email</th>
-                  <th>Commentaire</th>
+                  <th>Comment</th>
                 </tr>
               </thead>
               <tbody>
@@ -97,10 +97,8 @@ function DisplayAttraction() {
               </tbody>
             </table>
 
-
-
-            {/* Si le form pour ajouter un commentaire n'est pas affiché on met un bouton pour le faire afficher si l'utilisateur est connecté
-                        Si le form ajouter un commentaire est affiché on peut entrer un commentaire et l'ajouter */}
+            {/* If the form to add a comment is not displayed, we add a button to display it if the user is logged in
+                        If the add comment form is displayed, we can enter a comment and add it */}
             {formCommentaire == false && token && (
               <button
                 className="btn-commentaire"
@@ -108,16 +106,16 @@ function DisplayAttraction() {
                   setFormCommentaire(true);
                 }}
               >
-                Ajouter Commentaire
+                Add Comment
               </button>
             )}
             {formCommentaire && token && (
               <section className="Ajoutcommentaire">
-                <label htmlFor="commentaire">Entrer un commentaire</label>
+                <label htmlFor="commentaire">Enter a comment</label>
                 <textarea
                   rows="3"
                   cols="30"
-                  placeholder="Entrez votre commentaire"
+                  placeholder="Enter your comment"
                   id="commentaire"
                   value={commentaire}
                   onChange={(e) => setCommentaire(e.target.value)}
@@ -127,12 +125,12 @@ function DisplayAttraction() {
                     ajouterCommentaire(selectedAttraction.id, commentaire)
                   }
                 >
-                  Ajouter
+                  Add
                 </button>
               </section>
             )}
             {ajoutCommentaire === true && (
-              <p id="actionValide">Votre commentaire à bien été ajouté ! </p>
+              <p id="actionValide">Your comment has been successfully added!</p>
             )}
           </div>
         </section>

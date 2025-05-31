@@ -32,3 +32,180 @@
     justify-content: center;
     margin : auto;
   }
+
+.admin-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+}
+
+.admin-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.admin-card:hover::before {
+    transform: scaleX(1);
+}
+
+.admin-card h3 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.admin-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-card .icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.admin-card .btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    display: inline-block;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.admin-card:hover .btn {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Specific card colors */
+.admin-card.modify-park {
+    border-top: 4px solid var(--primary-color);
+}
+
+.admin-card.manage-users {
+    border-top: 4px solid var(--secondary-color);
+}
+
+.admin-card.add-attraction {
+    border-top: 4px solid var(--accent-color);
+}
+
+.admin-card.manage-attractions {
+    border-top: 4px solid var(--success-color);
+}
+
+/* Section Styles */
+.section {
+    margin: 4rem 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.section h2 {
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Back to top link */
+.back-to-top {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.back-to-top:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .admin-card {
+        padding: 1.5rem;
+    }
+
+    .section {
+        padding: 1.5rem;
+        margin: 2rem 0;
+    }
+}
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.admin-card {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.admin-card:nth-child(1) { animation-delay: 0.1s; }
+.admin-card:nth-child(2) { animation-delay: 0.2s; }
+.admin-card:nth-child(3) { animation-delay: 0.3s; }
+.admin-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}

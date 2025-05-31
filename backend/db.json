@@ -114,21 +114,21 @@
     "nom": "Adulte",
     "prix": 30,
     "quantité": 1,
-    "description": "For visitors aged 18 to 64."
+    "description": "For visitors from 18 to 64 years old."
   },
   {
     "id": "2",
     "nom": "Child",
     "prix": 20,
     "quantité": 1,
-    "description": "For children aged 5 to 17."
+    "description": "For children from 5 to 17 years old."
   },
   {
     "id": "3",
     "nom": "Senior",
     "prix": 15,
     "quantité": 1,
-    "description": "For visitors aged 65 and over."
+    "description": "For visitors from 65 years old and over."
   }
 ],
   "parcours": [

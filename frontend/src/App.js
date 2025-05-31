@@ -16,14 +16,14 @@ function App() {
   const [page, setPage] = useState("accueil");
   const [parcName, setParcName] = useState();
 
-  //on récupère les infos du parc pour afficher son nom
+  // Get park information to display its name
   useEffect(() => {
     getMyParc().then((data) => setParcName(data.nom));
   }, []);
 
-  //vérifie si l'utilisateur est un administrateur sur App pour qu'elle se fasse à tout moment et mette à jour les composants
+  // Check if user is an administrator on App so it's done at all times and updates components
   let token = localStorage.getItem("token");
-  //si l'utilisateur administrateur se déconnecte isAdmin passe à false
+  // If administrator user logs out, isAdmin becomes false
   console.log(isAdmin)
   if (token == null && isAdmin == true) {
     set_admin(false);
@@ -31,11 +31,11 @@ function App() {
 
   if (token != null && isAdmin == false) {
     getme(localStorage.getItem("token")).then((result) => {
-      set_admin(result.role === 'admin'); // Modifié ici
+      set_admin(result.role === 'admin'); // Modified here
     });
   }
 
-  //Affiche le composatn dont la page est mise en current page
+  // Display the component whose page is set as current page
   return (
     <div>
       <Navbar

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getUsers, deleteUsers } from "../../services/api";
 
-//fonction pour afficher les différents utilisateurs et pour les supprimer ou leur ajouter des droits
+// Function to display different users and to delete them or add rights
 function DisplayUsers({ token }) {
   const [listeUsers, setListeUsers] = useState([]);
 
   const [popupDeleteNom, setPopupDeleteNom] = useState("");
   const [popupDeleteId, setPopupDeleteId] = useState("");
 
-  //on récupère la liste des utilisateurs
+  // Get the list of users
   useEffect(() => {
     fetchUser();
   }, [token]);
@@ -22,18 +22,18 @@ function DisplayUsers({ token }) {
     setPopupDeleteId(false);
   };
 
-  //avec l'API o récupère la liste des utilisateurs et leurs informations
+  // With the API we get the list of users and their information
   const fetchUser = () => {
     getUsers(token)
       .then((result) => {
         setListeUsers(result);
       })
       .catch((error) => {
-        console.error("Erreur", error);
+        console.error("Error", error);
       });
   };
 
-  //si les users ne sont pas admin on les mets en administrateurs
+  // If users are not admin we make them administrators
   const handleAdmin = (userId, userAdmin) => {
     if (userAdmin == false) {
       updateUsersAdmin(token, userId)
@@ -42,14 +42,14 @@ function DisplayUsers({ token }) {
         })
         .catch((error) => {
           console.error(
-            "Erreur lors de la mise à jour de l'utilisateur",
+            "Error updating user",
             error
           );
         });
     }
   };
 
-  //Appel à l'API pour supprimer un utilisateur
+  // API call to delete a user
   const deleteUserById = (userId) => {
     deleteUsers(token, userId)
       .then((result) => {
@@ -57,24 +57,24 @@ function DisplayUsers({ token }) {
         closePopupDelete();
       })
       .catch((error) => {
-        console.error("Erreur lors de la mise à jour de l'utilisateur", error);
+        console.error("Error updating user", error);
       });
   };
 
-  //Affichage de la liste des utilisateurs avec leur pseudo, leur mail, si ils sont administrateurs,
-  //un bouton pour les ajouter en admin et un pour supprimer l'utilisateur
+  // Display the list of users with their username, email, if they are administrators,
+  // a button to add them as admin and one to delete the user
   const displayUsers = () => {
     return listeUsers.map((user) => (
       <tr key={user.id} className="list-item">
         <td>{user.email}</td>
-        <td>{user.admin ? "Oui" : "Non"}</td>
+        <td>{user.admin ? "Yes" : "No"}</td>
         {user.pseudo !== "admin" ? (
           <td>
             <button
               className="btn-supprimer"
               onClick={() => handleDeleteUser(user.id, user.pseudo)}
             >
-              Supprimer
+              Delete
             </button>
           </td>
         ) : (
@@ -83,17 +83,17 @@ function DisplayUsers({ token }) {
       </tr>
     ));
   };
-  //On crée le tableau dans lequel les utilisateurs vont être affichés
+  // Create the table in which users will be displayed
   return (
     <div>
-      <h2>Gestion des utilisateurs</h2>
+      <h2>User Management</h2>
       <div className="divtab">
         <table>
           <thead>
             <tr>
-              <th>Mail</th>
-              <th>Administrateur</th>
-              <th>Supprimer</th>
+              <th>Email</th>
+              <th>Administrator</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody id="listeUsers">{displayUsers()}</tbody>
@@ -102,7 +102,7 @@ function DisplayUsers({ token }) {
           <div className="popup-bg active">
             <div className="popupDelete">
               <p>
-                Etes-vous sûr de vouloir supprimer cet utilisateur:{" "}
+                Are you sure you want to delete this user:{" "}
                 {popupDeleteNom}
               </p>
               <div className="btns">
@@ -110,13 +110,13 @@ function DisplayUsers({ token }) {
                   className="btn-supprimer"
                   onClick={() => deleteUserById(popupDeleteId)}
                 >
-                  Supprimer
+                  Delete
                 </button>
                 <button
                   className="btn-annuler"
                   onClick={() => closePopupDelete()}
                 >
-                  Annuler
+                  Cancel
                 </button>
               </div>
             </div>

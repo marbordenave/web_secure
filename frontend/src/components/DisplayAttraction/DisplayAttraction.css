@@ -1,97 +1,158 @@
-
-
 #listeAttraction {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .afficheAttraction {
-    width: 25em;
-    height: auto;
-    margin: 1%;
-    padding : 5%; 
     background: white;
-    border-radius: 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
     cursor: pointer;
-   
 }
 
 .afficheAttraction:hover {
-    background: #e6e6e6;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .afficheAttraction img {
     width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 
-.afficheAttraction h2,
-.afficheAttraction h3 {
-    font-size: 1.2em;
-    padding: 10px;
+.afficheAttraction h2 {
+    padding: 1rem;
     margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-color);
 }
-
 
 #detailsAttraction {
-    width: 90vw;
-    margin: auto;
-    padding-top: 4%;
-    margin-bottom: 3.33vw;
-    background: rgb(244, 249, 249);
-    border-radius: 1.11vw;
-    position: relative; 
-    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    z-index: 1000;
 }
 
 #detailsAttraction div img {
-    width: 33.33vw;
-    padding-left: 10%;
-    padding-top: 10%;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto;
+    display: block;
 }
 
 #detailsAttraction .textes {
-    padding: 2.22vw;
-    text-align: center;
+    padding: 2rem;
 }
 
-#detailsAttraction.textes h2 {
-    margin: 1.11vw;
+#detailsAttraction .textes h2 {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 #detailsAttraction .textes p {
-    margin: 1.11vw;
-}
-
-#detailsAttraction .textes ul {
-    list-style-type: none;
-}
-
-#detailsAttraction .textes ul li {
-    border-bottom: 0.033vw solid #ddd;
+    margin: 1rem 0;
     text-align: left;
-    max-width: 10vw;
-    margin: 0 auto;
-    box-shadow: 0 0.002vw 0.004vw rgba(0, 0, 0, 0.1);
-    border-radius: 0.05vw;
-    background-color: #fff;
-    padding: 0.1vw;
+    line-height: 1.6;
 }
 
 .detailsLabel {
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
+#detailsAttraction table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+}
+
+#detailsAttraction table th,
+#detailsAttraction table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+#detailsAttraction table th {
+    background-color: var(--primary-color);
+    color: white;
+}
 
 #btnCloseDetails {
     position: absolute;
-    top: 1%;
-    right: 1%;
-    cursor: pointer;
+    top: 1rem;
+    right: 1rem;
 }
-   
-#actionValide 
-{
-    color : rgb(17, 150, 0)
+
+#btnCloseDetails button {
+    background: var(--error-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#btnCloseDetails button:hover {
+    background: #d62828;
+}
+
+.Ajoutcommentaire {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.Ajoutcommentaire textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 1rem 0;
+    resize: vertical;
+}
+
+#actionValide {
+    color: var(--success-color);
+    font-weight: 500;
+    margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    #listeAttraction {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    #detailsAttraction {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    #detailsAttraction .textes {
+        padding: 1rem;
+    }
 }
 

@@ -2,17 +2,17 @@ import React from "react";
 import "../App.css";
 import FormulaireInscription from "../components/FormulaireInscription/FormulaireInscription";
 
-//Page d'inscription
+// Registration page
 function Inscription({ setPage }) {
   return (
     <div>
-      <h1>Inscription</h1>
+      <h1>Registration</h1>
       <FormulaireInscription />
       <br></br>
       <p>
-        Si vous avez déjà un compte, veuillez vous connecter ci-dessous :
+        If you already have an account, please log in below:
         <button className="connexion" onClick={() => setPage("connexion")}>
-          Se connecter{" "}
+          Log in{" "}
         </button>
       </p>
     </div>

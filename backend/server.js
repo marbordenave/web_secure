@@ -1,34 +1,35 @@
 require("dotenv").config();
-
+const express = require("express");
+const cors = require("cors");
+const { body } = require("express-validator");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+const jwt = require("jsonwebtoken");
+const rateLimit = require("express-rate-limit");
+const bodyParser = require("body-parser");
+const fs = require("fs"); // Ajoutez cette ligne
 const checkRole = require("./middlewares/checkRole");
 const validate = require("./middlewares/validate");
 
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const fs = require("fs");
-const bcrypt = require("bcrypt");
-const { body } = require("express-validator");
-const saltRounds = 10;
-
 const app = express();
+//
+// 2. Applique le CORS (doit être avant les vérifications d’API key)
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-api-key"],
+    credentials: true,
+  })
+);
 
-//criteria 9
-const rateLimit = require("express-rate-limit");
-// Middleware global pour limiter les requêtes (DoS mitigation)
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limite chaque IP à 100 requêtes par fenêtre
-  message: {
-    error: "Too many requests from this IP, please try again later.",
-  },
-  standardHeaders: true, // Retourne les infos de rate limit dans les headers
-  legacyHeaders: false, // Désactive les anciens headers
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
 });
 
-// Appliquer le rate limiter à toutes les routes
-app.use(limiter);
+// 1. Gère les requêtes CORS préflight
+app.options("*", cors());
 
 const PORT = 3000;
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -49,9 +50,36 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-// Middlewares
-app.use(cors());
+//  3. Applique le rate limiter
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: {
+      error: "Too many requests from this IP, please try again later.",
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+  })
+);
+
+// 4. Parse JSON
 app.use(bodyParser.json());
+
+// 5. Vérifie la clé API sauf sur certaines routes
+const checkApiKey = (req, res, next) => {
+  const key = req.headers["x-api-key"];
+  if (key !== process.env.API_KEY) {
+    return res.status(403).json({ error: "Invalid API key" });
+  }
+  next();
+};
+
+app.use((req, res, next) => {
+  if (["/login", "/register", "/me"].includes(req.path)) return next();
+  if (req.method === "OPTIONS") return next(); // 🔑 NE PAS bloquer les préflight
+  checkApiKey(req, res, next);
+});
 
 // Functions to handle the database
 function loadDB() {
@@ -74,6 +102,15 @@ function saveDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Remplacer * par votre front en production
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 // Authentication routes
 
 app.post(
@@ -86,15 +123,24 @@ app.post(
   async (req, res) => {
     try {
       const { email, password } = req.body;
+      console.log("Login attempt:", email);
 
       const db = loadDB();
-      const user = db.users.find((u) => u.email === email);
+      console.log("Users in DB:", db.users);
+
+      // Insensible à la casse sur email
+      const user = db.users.find(
+        (u) => u.email.toLowerCase() === email.toLowerCase()
+      );
 
       if (!user) {
+        console.log("User not found");
         return res.status(401).json({ error: "Invalid email or password" });
       }
 
       const match = await bcrypt.compare(password, user.password);
+      console.log("Password match:", match);
+
       if (!match) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
@@ -115,6 +161,7 @@ app.post(
         },
       });
     } catch (err) {
+      console.error(err);
       res.status(500).json({ error: "Server error" });
     }
   }
@@ -434,6 +481,11 @@ app.post(
 app.use((err, req, res, next) => {
   console.error("Error:", err);
   res.status(500).json({ error: "Server error" });
+});
+
+// Avant app.listen, après toutes les routes
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
 });
 
 app.listen(PORT, () => {

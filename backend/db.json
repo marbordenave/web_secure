@@ -98,39 +98,37 @@
       "duree": 4,
       "age_minimum": 10,
       "date_creation": "2024-04-16",
-      "image": "image_lisbonne.jpg",
+      "image": "/images/Lisbonne.jpg",
       "commentaires": []
     }
   ],
-
-  "parc": 
-  {
+  "parc": {
     "nom": "Adventure Park",
     "description": "The most exciting amusement park with roller coasters and thrilling adventures."
   },
-"tarifs": [
-  {
-    "id": "1",
-    "nom": "Adulte",
-    "prix": 30,
-    "quantité": 1,
-    "description": "For visitors from 18 to 64 years old."
-  },
-  {
-    "id": "2",
-    "nom": "Child",
-    "prix": 20,
-    "quantité": 1,
-    "description": "For children from 5 to 17 years old."
-  },
-  {
-    "id": "3",
-    "nom": "Senior",
-    "prix": 15,
-    "quantité": 1,
-    "description": "For visitors from 65 years old and over."
-  }
-],
+  "tarifs": [
+    {
+      "id": "1",
+      "nom": "Adulte",
+      "prix": 30,
+      "quantité": 1,
+      "description": "For visitors from 18 to 64 years old."
+    },
+    {
+      "id": "2",
+      "nom": "Child",
+      "prix": 20,
+      "quantité": 1,
+      "description": "For children from 5 to 17 years old."
+    },
+    {
+      "id": "3",
+      "nom": "Senior",
+      "prix": 15,
+      "quantité": 1,
+      "description": "For visitors from 65 years old and over."
+    }
+  ],
   "parcours": [
     {
       "id": "cfd6",
@@ -165,6 +163,12 @@
       "email": "test2@example.com",
       "password": "$2b$10$B.o/jfcG0JQxhk0kFhb2YurGgWo1bkaHWhTCrf9PY6jVE5okY/cxC",
       "role": "admin"
+    },
+    {
+      "id": "3",
+      "email": "test3@example.com",
+      "password": "$2b$10$rUku6VzGu.Gk2wOsc8SK1.UmZSwG4ppX0h3JHYvlo0iqKXSsKKsSG",
+      "role": "user"
     }
   ]
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { sendUser } from "../../services/api";
 import "./FormulaireInscription.css";
 
-//Fonction pour effectuer l'inscription des utilisateurs et vérifier
+//Function to handle user registration and validation
 function FormulaireInscription() {
   const [popup, setPopup] = useState("");
 
@@ -20,7 +20,7 @@ function FormulaireInscription() {
 
   const [submitError, setSubmitError] = useState("");
 
-  //fonction pour remettre a 0 toutes les composantes
+  //Function to reset all components
   function resetAll() {
     setPseudo("");
     setPassword("");
@@ -29,158 +29,160 @@ function FormulaireInscription() {
     setPasswordSuccess("");
   }
 
-  //Fonction pour effecter les changements pour le pseudo
+  //Function to handle username changes
   function handleChangePseudo(event) {
     setPseudo(event.target.value);
     checkPseudo(event.target.value);
   }
 
-  //Fonction pour effecter les changements pour le mot de passe
+  //Function to handle password changes
   function handleChangePassword(event) {
     setPassword(event.target.value);
     checkPassword(event.target.value);
   }
 
-  //Fonction pour effecter les changements pour la vérification du mot de passe
+  //Function to handle password confirmation changes
   function handleChangePasswordConfirm(event) {
     setPasswordConfirm(event.target.value);
     checkPasswordConfirm(event.target.value);
   }
 
-  //Fonction pour effecter les changements pour l'email
+  //Function to handle email changes
   function handleChangeMail(event) {
     setMail(event.target.value);
     checkMail(event.target.value);
   }
 
-  //On vérifie si le pseudo fait plus de 5 caractères
+  //Check if username is longer than 5 characters
   const checkPseudo = (value) => {
     if (value.length < 5) {
-      setPseudoError("Le pseudo doit faire plus de 5 caractères.");
+      setPseudoError("Username must be longer than 5 characters.");
     } else {
       setPseudoError("");
     }
   };
 
-  //On vérifie si le mot de passe est assez long, qu'il contient au moins une maj et un chiffre
+  //Check if password is long enough and contains at least one uppercase letter and one number
   const checkPassword = (value) => {
-    let error = "Le mot de passe doit contenir ; \n";
+    let error = "Password must contain:\n";
     setPasswordSuccess("");
-    // Pour vérifier que la chaine de caractère contient au moins une majuscule, on la convertit en minuscules, si la chaine de caractères n'a pas changé, alors elle ne contenait pas de majuscules.
+    // To check if the string contains at least one uppercase letter, we convert it to lowercase. If the string hasn't changed, it didn't contain any uppercase letters.
     let maj = value.toLowerCase() != value;
-    // Pour vérifier que la chaine de caractère contient au moins une minuscule, on la convertit en majuscules, si la chaine de caractères n'a pas changé, alors elle ne contenait pas de minuscules.
+    // To check if the string contains at least one lowercase letter, we convert it to uppercase. If the string hasn't changed, it didn't contain any lowercase letters.
     let min = value.toUpperCase() != value;
-    // Pour vérifier que la chaine de caractères contient au moins un chiffre, on parcourt la chaine de caractères, et pour chaque caractères, on essaye de le convertir en entier. Si la fonction parseInt() renvoi NaN (Not a Number), alors il ne s'agit pas d'un chiffre.
+    // To check if the string contains at least one number, we iterate through the string and try to convert each character to an integer. If parseInt() returns NaN (Not a Number), then it's not a digit.
     let num = false;
     for (let i = 0; i < value.length; i++) {
       if (!isNaN(parseInt(value[i]))) num = true;
     }
-    // Pour vérifier que la chaine de caractères contient au moins un caractère spécial, on créé une chaine de caractères contenant tous ceux que le souhaite vérifier. On parcourt ensuite notre mot de passe et pour chaque caractères on vérifie s'il est dans la chaine des caractères spéciaux.
+    // To check if the string contains at least one special character, we create a string containing all the special characters we want to check. We then iterate through our password and check if each character is in the special characters string.
     let caracters = "!@#$%^&*()_+-=[]{}|;:,.<>?";
     let car = false;
     for (let i = 0; i < value.length; i++) {
       if (caracters.includes(value[i])) car = true;
     }
 
-    //Si le mot de passe fait moins de 9 caratères
+    //If password is less than 9 characters
     if (value.length < 9) {
-      error += "-plus de 9 caractères\n";
+      error += "-more than 9 characters\n";
     } else {
       setPasswordError("");
     }
-    //Si le mot de passe ne contient pas de minuscule
+    //If password doesn't contain a lowercase letter
     if (!min) {
-      error += "-au moins une minuscule \n";
+      error += "-at least one lowercase letter\n";
     } else {
       setPasswordError("");
     }
-    //Si le mot de passe ne contient pas de majuscule
+    //If password doesn't contain an uppercase letter
     if (!maj) {
-      error += "-au moins une majuscule \n";
+      error += "-at least one uppercase letter\n";
     } else {
       setPasswordError("");
     }
-    //Si le mot de passe ne contient pas au moins un chiffre
+    //If password doesn't contain at least one number
     if (!num) {
-      error += "-au moins un chiffre \n";
+      error += "-at least one number\n";
     } else {
       setPasswordError("");
     }
-    //Si le mot de passe ne contient pas au moins un caractère spécial
+    //If password doesn't contain at least one special character
     if (!car) {
-      error += "-au moins un caractère spécial \n";
+      error += "-at least one special character\n";
     } else {
       setPasswordError("");
     }
-    //Si toutes les conditions sont réunies on change le mot de passe
+    //If all conditions are met, we update the password
     if (maj == true && min == true && num == true && car == true) {
-      setPasswordSuccess("Mot de passe robuste");
+      setPasswordSuccess("Strong password");
       return setPasswordError("");
     }
-    //Sinon on retourne l'erreur
+    //Otherwise, we return the error
     return setPasswordError(error);
   };
 
-  //On verifie que le mot de passe de vérification soit le même que le mot de passe de base
+  //Check if the confirmation password matches the original password
   const checkPasswordConfirm = (value) => {
     if (value !== password) {
-      setPasswordConfirmError("Les mots de passe entrés ne correspondent pas.");
+      setPasswordConfirmError("The entered passwords do not match.");
     } else {
       setPasswordConfirmError("");
     }
   };
-  //On vérifie que le mail est conforme
+
+  //Check if the email is valid
   const checkMail = (value) => {
     if (value.length < 5 || !value.includes("@")) {
-      setMailError("L'adresse mail n'est pas valide.");
+      setMailError("The email address is not valid.");
     } else {
       setMailError("");
     }
   };
 
-  //On inscrit l'utilisateur
+  //Register the user
   function handleInscription() {
-    //Si il n'y a aucune erreur
+    //If there are no errors
     if (!mailError && !passwordConfirmError && !passwordError && !pseudoError) {
-      setSubmitError(""); // Réinitialisation de l'erreur de soumission
-      // Envoyer les données utilisateur
+      setSubmitError(""); // Reset submission error
+      // Send user data
       sendUser(mail, password);
-      //on met une popup pour montrer à l'utilisateur qu'il est bien inscrit
+      //Show a popup to indicate successful registration
       setPopup(true);
-      //On reset les valeurs envoyées
+      //Reset sent values
       resetAll();
     }
-    //Si il y a des erreurs on affiche un message demandant de les corriger
+    //If there are errors, display a message asking to correct them
     else {
       setSubmitError(
-        "Veuillez corriger les erreurs avant de soumettre le formulaire."
+        "Please correct the errors before submitting the form."
       );
       if (!pseudo) {
-        setPseudoError("Le pseudo est requis.");
+        setPseudoError("Username is required.");
       }
       if (!password) {
-        setPasswordError("Le mot de passe est requis.");
+        setPasswordError("Password is required.");
       }
       if (!passwordConfirm) {
-        setPasswordConfirmError("La confirmation du mot de passe est requise.");
+        setPasswordConfirmError("Password confirmation is required.");
       }
       if (!mail) {
-        setMailError("L'adresse mail est requise.");
+        setMailError("Email address is required.");
       }
     }
   }
-  //On ferme la popup
+
+  //Close the popup
   const closePopup = () => {
     setPopup(false);
   };
 
-  //On affiche un formulaire dans lequel on peut inscrire un pseudo, un mot de passe, sa vérification ainsi que son adresse email
-  // ainsi qu'un bouton pour envoyer ce formulaire
-  //Il y a aussi la popup qui s'affiche si l'utilisateur a bien été inscrit
+  //Display a form where users can enter their username, password, password confirmation, and email address
+  //along with a submit button
+  //Also includes a popup that appears when the user is successfully registered
   return (
     <div className="forminscr">
       <div>
-        <label htmlFor="pseudo">Pseudo</label>
+        <label htmlFor="pseudo">Username</label>
         <input
           type="text"
           id="pseudo"
@@ -190,7 +192,7 @@ function FormulaireInscription() {
         <span className="error">{pseudoError}</span>
       </div>
       <div>
-        <label htmlFor="password">Mot de passe</label>
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id=""
@@ -201,7 +203,7 @@ function FormulaireInscription() {
         <span className="valid">{passwordSuccess}</span>
       </div>
       <div>
-        <label htmlFor="re-password">Confirmer le mot de passe</label>
+        <label htmlFor="re-password">Confirm Password</label>
         <input
           type="password"
           id="re-password"
@@ -211,7 +213,7 @@ function FormulaireInscription() {
         <span className="error">{passwordConfirmError}</span>
       </div>
       <div>
-        <label htmlFor="mail">Mail</label>
+        <label htmlFor="mail">Email</label>
         <input
           type="email"
           id="mail"
@@ -221,13 +223,13 @@ function FormulaireInscription() {
         <span className="error">{mailError}</span>
       </div>
       <span className="error">{submitError}</span>
-      <button onClick={handleInscription}>S'inscrire</button>
+      <button onClick={handleInscription}>Register</button>
       {popup && (
         <div className="popup-bg active">
           <div className="popupDelete">
-            <p>Vous êtes désormais inscris</p>
+            <p>You are now registered</p>
             <button className="btn-annuler" onClick={() => closePopup()}>
-              Fermer
+              Close
             </button>
           </div>
         </div>

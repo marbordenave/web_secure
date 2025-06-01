@@ -6,7 +6,7 @@ import {
 } from "../../services/api";
 import "./ModificationAttraction.css";
 
-//Fonction pour modifier et supprimer les attractions
+//Function to modify and delete attractions
 function ModificationAttraction({ token }) {
   const [attractions, setAttractions] = useState([]);
   const [editAttractionData, setEditAttractionData] = useState(null);
@@ -15,48 +15,48 @@ function ModificationAttraction({ token }) {
   const [popupDeleteId, setPopupDeleteId] = useState("");
   const [popupEdit, setPopupEdit] = useState(false);
 
-  //On récupère les attractions
+  //We fetch the attractions
   useEffect(() => {
     fetchAttractions();
   }, [token]);
 
-  //On récupère les attractions
+  //We fetch the attractions
   const fetchAttractions = () => {
     getAttraction(token)
       .then((result) => {
         setAttractions(result);
       })
       .catch((error) => {
-        console.error("Erreur", error);
+        console.error("Error", error);
       });
   };
 
-  //Fonction pour afficher une popup pour s'assurer que l'administrateur veut supprimer une attraction
+  //Function to display a popup to confirm that the administrator wants to delete an attraction
   const handleDeleteAttraction = (attractionId, attractionName) => {
     setPopupDeleteNom(attractionName);
     setPopupDeleteId(attractionId);
   };
 
-  //fonction pour supprimer une attraction par son id
+  //Function to delete an attraction by its id
   const deleteAttractionById = (attractionId) => {
     deleteAttraction(token, attractionId)
       .then((result) => {
-        //on ferme la popup et on recupere les attractions si la suppression c'est bien faite
+        //We close the popup and fetch the attractions if the deletion was successful
         closePopupDelete();
         fetchAttractions();
       })
       .catch((error) => {
-        console.error("Erreur suppression attraction", error);
+        console.error("Error deleting attraction", error);
       });
   };
 
-  //fonction pour afficher une popup pour midifier une attraction
+  //Function to display a popup to modify an attraction
   const handleEditAttraction = (attraction) => {
     setEditAttractionData(attraction);
     setPopupEdit(true);
   };
 
-  //fonction pour effectuer les changements sur les valeurs des champs de l'attraction si il y en a
+  //Function to update the attraction field values if there are any changes
   const handleChange = (e) => {
     const updatedAttractionData = {
       ...editAttractionData,
@@ -65,21 +65,21 @@ function ModificationAttraction({ token }) {
     setEditAttractionData(updatedAttractionData);
   };
 
-  //fonction pour mettre à jour l'attraction avec les informations qui ont changés en utilisant son id
+  //Function to update the attraction with the changed information using its id
   const handleUpdate = () => {
     updateAttraction(token, editAttractionData.id, editAttractionData)
       .then((response) => {
-        //on récupère les attractions et on enleve la popup
+        //We fetch the attractions and remove the popup
         fetchAttractions();
         setEditAttractionData(null);
         setPopupEdit(false);
       })
       .catch((error) => {
-        console.error("Erreur lors de la mise à jour de l'attraction:", error);
+        console.error("Error updating attraction:", error);
       });
   };
 
-  //fonction pour afficher les attractions
+  //Function to display the attractions
   const displayAttractions = () => {
     return attractions.map((attraction) => (
       <tr key={attraction.id} className="list-item">
@@ -108,7 +108,7 @@ function ModificationAttraction({ token }) {
             onClick={(e) => toggleDescription(e.target)}
           >
             {attraction.description.split(" ").slice(0, 5).join(" ")}
-            <span className="expand-trigger"> Voir plus</span>
+            <span className="expand-trigger"> See more</span>
           </span>
           <span className="description-full">{attraction.description}</span>
         </td>
@@ -120,7 +120,7 @@ function ModificationAttraction({ token }) {
     ));
   };
 
-  //Comme la description peut être trop longue on conditionne son affichage complet à un clic
+  //Since the description can be too long, we condition its full display to a click
   const toggleDescription = (element) => {
     const description = element
       .closest("tr")
@@ -129,21 +129,21 @@ function ModificationAttraction({ token }) {
     if (!description.classList.contains("expanded")) {
       description.style.display = "inline";
       preview.style.display = "none";
-      element.innerText = "Réduire";
+      element.innerText = "Reduce";
     } else {
       description.style.display = "none";
       preview.style.display = "inline";
-      element.innerText = "Voir plus";
+      element.innerText = "See more";
     }
   };
 
-  //fonction pour fermer la popup delete
+  //Function to close the delete popup
   const closePopupDelete = () => {
     setPopupDeleteId(false);
   };
 
-  //On affiche le tableau dans lequel les informations des informations seront affichées
-  //permet de gérer l'affichage des popup de delete et d'edition d'attractions
+  //We display the table in which the attraction information will be shown
+  //Allows to manage the display of delete and edit attraction popups
   return (
     <div>
       <h2>Attractions Management</h2>
@@ -155,7 +155,7 @@ function ModificationAttraction({ token }) {
               <th>Edit</th>
               <th>Name</th>
               <th>Description</th>
-              <th>Duration</th>
+              <th>Duration (in minutes)</th>
               <th>Minimum Age</th>
               <th>Creation Date</th>
               <th>Image</th>

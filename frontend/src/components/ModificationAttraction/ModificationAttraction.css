@@ -9,3 +9,9 @@
     display: block;
     max-height: 100%; /* Valeur suffisamment grande pour accueillir le contenu complet */
   }
+
+  .expand-trigger {
+    color: #0066cc;
+    cursor: pointer;
+    margin-left: 5px;
+  }

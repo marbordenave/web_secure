@@ -59,13 +59,13 @@ export const logUser = async (email, password) => {
     });
 
     if (!response.ok) {
-      throw new Error("Email ou mot de passe incorrecte");
+      throw new Error("Incorrect email or password");
     }
 
-    const data = await response.json(); // 🔧 corrigé : `res` -> `response`
+    const data = await response.json(); // 🔧 corrected: `res` -> `response`
     return data;
   } catch (error) {
-    console.error("Erreur API logUser:", error);
+    console.error("API logUser error:", error);
     throw error;
   }
 };

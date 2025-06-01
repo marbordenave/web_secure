@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { getTarif } from '../../services/api';
 import './Tarif.css'; 
 
-//Fonction pour afficher les tarifs du parc
+//Function to display park rates
 function Tarif() {
     const [listeTarif, setTarif] = useState([]);
 
-    //on récupère les différents tarifs du parc
+    //We fetch the different park rates
     useEffect(() => {
         getTarif().then(result => {
             setTarif(result);
         });
     }, []);
 
-    //On affiche les tarifs
+    //We display the rates
     const ajouterTarif= (nom, prix, description) => {
         return (
             <article className="afficheTarif">
@@ -24,7 +24,7 @@ function Tarif() {
         );
     }; 
 
-    //On décompose l'affichage des tarifs que l'on fait 1 par 1
+    //We break down the display of rates one by one
     const displayTarif = (TarifList) => {
         return TarifList.map((tarif, idx) => (
             <div key={idx}>
@@ -33,7 +33,7 @@ function Tarif() {
         ));
     };
 
-    //On affiche les tarifs
+    //We display the rates
     return (
         <div>
             <section id="listeTarif">
